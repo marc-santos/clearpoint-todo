@@ -1,16 +1,34 @@
 import './App.css'
 import { Image, Alert, Button, Container, Row, Col, Form, Table, Stack } from 'react-bootstrap'
 import React, { useState, useEffect } from 'react'
-
-const axios = require('axios')
+import axios from 'axios';
 
 const App = () => {
   const [description, setDescription] = useState('')
   const [items, setItems] = useState([])
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     // todo
+    getAll();
   }, [])
+
+  function getAll() {
+    axios.get('https://localhost:5001/api/TodoItems')
+    .then(function (response) {
+      setItems(response.data);
+    })
+    .catch(error => {
+      console.error('There was an error fetching the data!', error);
+    });
+  }
+
+  function showMessage(msg) {
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage('');
+    }, 5000);
+  }
 
   const renderAddTodoItemContent = () => {
     return (
@@ -67,25 +85,28 @@ const App = () => {
                 <td>{item.id}</td>
                 <td>{item.description}</td>
                 <td>
-                  <Button variant="warning" size="sm" onClick={() => handleMarkAsComplete(item)}>
-                    Mark as completed
+                  <Button variant="warning" size="sm" disabled={item.isCompleted} onClick={() => handleMarkAsComplete(item)}>
+                  {item.isCompleted ? 'Completed' : 'Mark as completed'}
                   </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
+        <div>
+          {message && <div className="error-text">{message}</div>}
+        </div>
       </>
     )
   }
 
   const handleDescriptionChange = (event) => {
-    // todo
+    setDescription(event.target.value);
   }
 
   async function getItems() {
     try {
-      alert('todo')
+      getAll();
     } catch (error) {
       console.error(error)
     }
@@ -93,7 +114,16 @@ const App = () => {
 
   async function handleAdd() {
     try {
-      alert('todo')
+      const newItem = { description: description, isCompleted: false };
+      const response = await axios.post('https://localhost:5001/api/TodoItems', newItem);
+      setDescription('');
+      if (response.data.statusCode === 204) {
+        setItems([...items, response.data]);
+        getAll();
+      } else {
+        showMessage(response.data.value.message);
+      }
+      
     } catch (error) {
       console.error(error)
     }
@@ -105,9 +135,21 @@ const App = () => {
 
   async function handleMarkAsComplete(item) {
     try {
-      alert('todo')
+      const response = await fetch(`https://localhost:5001/api/todoitems/${item.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(item)
+      });
+
+      if (response.ok) {
+        getAll();
+      } else {
+        console.error('Update failed:', response.statusText);
+      }
     } catch (error) {
-      console.error(error)
+      console.error('Error updating item:', error);
     }
   }
 
