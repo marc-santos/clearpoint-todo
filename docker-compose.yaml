@@ -1,0 +1,59 @@
+services:
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sqlserver
+    environment:
+      # This is a developer secret and commonly available with the default SQL Server image
+      # We should never commit real secrets to source control
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "11433:1433"
+
+  redis:
+    container_name: redis
+    image: redis 
+    ports:
+      - 6379:6379
+  
+  back-end-mock:
+    container_name: mockoon
+    image: mockoon/cli
+    command: --data data
+    volumes:
+      - ./src/mocks/back-end/data.json:/data:ro
+    ports:
+      - 4000:3000
+
+  back-end:
+    container_name: back-end
+    build:
+      context: /src/back-end/TodoList.Api
+      dockerfile: ./Dockerfile
+    environment:
+      # These values are VERBATIM, do not include quotes unless they are needed in the actual value
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      # Needed as an override of default appsettings
+      - CacheConfiguration__ConnectionString=redis:6379
+      - CacheConfiguration__Enabled=true
+      # This is a developer secret and commonly available with the default SQL Server image
+      # We should never commit real secrets to source control
+      - DbConfiguration__ConnectionString=Server=sqlserver;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    ports:
+      - "5000:5000"
+    depends_on:
+      - back-end-mock
+      - redis
+      - sqlserver
+
+  front-end:
+    container_name: front-end
+    build:
+      context: /src/front-end
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - back-end
