@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace TodoList.Api.UnitTests
+namespace TodoList.Api.Tests
 {
     public class DummyTestShould
     {
