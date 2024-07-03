@@ -8,9 +8,27 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "TodoList.Api.sln"
+RUN dotnet restore \
+    "TodoList.Api.sln"
+
 WORKDIR "/src/TodoList.Api"
-RUN dotnet build "TodoList.Api.csproj" -c Release -o /app/build
+
+RUN dotnet build \ 
+    "TodoList.Api.csproj" \ 
+    --no-restore \ 
+    -c Release \ 
+    -o /app/build
+
+RUN dotnet test \
+    --logger="trx" \
+    --collect:"XPlat Code Coverage" \
+    /p:CollectCoverage=true \
+    /p:CoverletOutputFormat=cobertura \
+    --no-build \
+    --no-restore \
+    -c Release \
+    --results-directory \
+    ./TestResults
 
 FROM build AS publish
 RUN dotnet publish "TodoList.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false

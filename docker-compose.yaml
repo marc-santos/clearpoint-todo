@@ -29,7 +29,7 @@ services:
   back-end:
     container_name: back-end
     build:
-      context: /src/back-end/TodoList.Api
+      context: /src/back-end
       dockerfile: ./Dockerfile
     environment:
       # These values are VERBATIM, do not include quotes unless they are needed in the actual value
