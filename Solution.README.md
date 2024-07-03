@@ -13,9 +13,45 @@ Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text d
 Bob-->Alice: Checking with John...
 Alice->John: Yes... John, how are you?
 ```
+
+## Solution Structure
+
+
+
 ## Front End 
 
 ## Back End
+
+### Application Architecture
+
+We prefer the use of Clean Architecture for our ASP.NET Web API which organises our application into four main layers:
+
+- Presentation - The API and is the entry point for communication with the application.
+- Application - Business logic spesific to  the use cases in our application.
+- Domain - Entities, value object and aggregates as well as domain spesific services.
+- Infrastructure - Implementation details and integration such as respositories, database context and external service.
+
+Benefits 
+
+- Seperation of concerns with each layer having distinct responsibilities making the code base easier to understand and maintain.
+- Flexibility that allows to make updates to the technology stack without affecting or retesting the core business logic.
+- Improves testability as business logic can be tested indeoendantly from the UI and Infratsructure.
+
+Visual Representation
+
+```mermaid
+graph TD
+A[Presentation]
+B[Infrastructure]
+C[Application]
+D[Domain]
+E[Data]
+
+A --> C
+B --> C
+C --> D
+B -.-> E
+```
 
 ## API Integration Tests
 
