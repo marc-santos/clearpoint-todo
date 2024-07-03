@@ -1,0 +1,83 @@
+﻿openapi: 3.0.3
+info:
+  title: Todo List ASP.NET Web API
+  description: For more information see https://github.com/DanielNieuwoudt/developer-assessment.git
+  version: 1.0.0
+servers:
+  - url: 'http://localhost/api'
+security:
+  - bearerAuth: [ ]
+paths:
+  /TodoItem/{id}:
+    get:
+      tags:
+        - Todo
+      operationId: getTodoItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/TodoItem'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoItem'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/TodoItem'
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Unauthorized
+        '5XX':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+              example:
+                type: "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                title: "Server error occurred."
+                status: 500,
+                traceId: c6b54e63-e576-4c14-8ccd-0315b60a1354
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    InternalError:
+      type: object
+      properties:
+        type:
+          type: string
+          description: URI reference that identifies the error type.
+        title:
+          type: string
+          description: Summary of why the request failed.
+        status:
+          type: string
+          description: The HTTP code.
+        traceId:
+          type: string
+          description: Request identifier for support purposes.
+    TodoItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+        isComplete:
+          type: boolean
+      additionalProperties: false
