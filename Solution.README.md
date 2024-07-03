@@ -26,16 +26,16 @@ Alice->John: Yes... John, how are you?
 
 We prefer the use of Clean Architecture for our ASP.NET Web API which organises our application into four main layers:
 
-- Presentation - The API and is the entry point for communication with the application.
-- Application - Business logic spesific to  the use cases in our application.
+- Presentation - The API is the entry point for communication with the application.
+- Application - Business logic spesific to the use cases in our application.
 - Domain - Entities, value object and aggregates as well as domain spesific services.
 - Infrastructure - Implementation details and integration such as respositories, database context and external service.
 
 Benefits 
 
 - Seperation of concerns with each layer having distinct responsibilities making the code base easier to understand and maintain.
-- Flexibility that allows to make updates to the technology stack without affecting or retesting the core business logic.
-- Improves testability as business logic can be tested indeoendantly from the UI and Infratsructure.
+- Flexibility that allows us to make updates to the technology stack without affecting or retesting the core business logic.
+- Improves testability as business logic can be tested independantly from the UI and Infrastructure.
 
 Visual Representation
 

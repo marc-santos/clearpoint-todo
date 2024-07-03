@@ -22,7 +22,7 @@ services:
     image: mockoon/cli
     command: --data data
     volumes:
-      - ./src/mocks/back-end/data.json:/data:ro
+      - ./mocks/back-end/data.json:/data:ro
     ports:
       - 4000:3000
 
