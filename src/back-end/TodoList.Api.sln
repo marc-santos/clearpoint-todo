@@ -6,17 +6,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Api", "TodoList.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Application", "TodoList.Application\TodoList.Application.csproj", "{7F1D0802-F20E-4BCA-BE82-EB6361AF2A0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Infrastructure", "TodoList.Infrastructure\TodoList.Infrastructure.csproj", "{0B36DEE5-8644-4EA7-B63B-4A4BD289D7F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Infrastructure", "TodoList.Infrastructure\TodoList.Infrastructure.csproj", "{0B36DEE5-8644-4EA7-B63B-4A4BD289D7F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Domain", "TodoList.Domain\TodoList.Domain.csproj", "{2B329856-A94C-4DAD-AAFF-B34618A0E9C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Domain", "TodoList.Domain\TodoList.Domain.csproj", "{2B329856-A94C-4DAD-AAFF-B34618A0E9C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Application.Tests", "TodoList.Application.Tests\TodoList.Application.Tests.csproj", "{4DBC5AB5-5952-48A6-A0B9-A2640ADA4061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Application.Tests", "TodoList.Application.Tests\TodoList.Application.Tests.csproj", "{4DBC5AB5-5952-48A6-A0B9-A2640ADA4061}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Api.Tests", "TodoList.Api.Tests\TodoList.Api.Tests.csproj", "{9E64D080-1525-44EC-A50F-550A8225995C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Domain.Tests", "TodoList.Domain.Tests\TodoList.Domain.Tests.csproj", "{AE1877B1-7A07-47B1-A7A9-E85C6A65F52F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Domain.Tests", "TodoList.Domain.Tests\TodoList.Domain.Tests.csproj", "{AE1877B1-7A07-47B1-A7A9-E85C6A65F52F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Infrastructure.Tests", "TodoList.Infrastructure.Tests\TodoList.Infrastructure.Tests.csproj", "{2AF8F1CF-FDAE-4F21-AEDF-B5F88B6734B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Infrastructure.Tests", "TodoList.Infrastructure.Tests\TodoList.Infrastructure.Tests.csproj", "{2AF8F1CF-FDAE-4F21-AEDF-B5F88B6734B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{558504FB-57BB-4125-93E5-580849BEEB1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
