@@ -18,7 +18,7 @@
 #pragma warning disable 8604 // Disable "CS8604 Possible null reference argument for parameter"
 #pragma warning disable 8625 // Disable "CS8625 Cannot convert null literal to non-nullable reference type"
 
-namespace WebApi.RestAdapter.Generated
+namespace TodoList.Api.Generated
 {
     using System = global::System;
 
@@ -28,8 +28,20 @@ namespace WebApi.RestAdapter.Generated
     public abstract class TodoControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         /// <returns>Success</returns>
-        [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("TodoItem/{id}")]
+        [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("TodoItems/{id}")]
         public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<TodoItem>> GetTodoItem([Microsoft.AspNetCore.Mvc.ModelBinding.BindRequired] System.Guid id);
+
+        /// <returns>No Content</returns>
+        [Microsoft.AspNetCore.Mvc.HttpPut, Microsoft.AspNetCore.Mvc.Route("TodoItems/{id}")]
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult> PutTodoItem([Microsoft.AspNetCore.Mvc.ModelBinding.BindRequired] System.Guid id, [Microsoft.AspNetCore.Mvc.FromBody] TodoItem? body);
+
+        /// <returns>Success</returns>
+        [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("TodoItems")]
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<System.Collections.Generic.ICollection<TodoItem>>> GetTodoItems();
+
+        /// <returns>Success</returns>
+        [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("TodoItems")]
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<TodoItem>> PostTodoItem([Microsoft.AspNetCore.Mvc.FromBody] TodoItem? body);
 
     }
 
@@ -82,6 +94,12 @@ namespace WebApi.RestAdapter.Generated
 
         [Newtonsoft.Json.JsonProperty("isComplete", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public bool IsComplete { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.1.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class TodoItems : System.Collections.ObjectModel.Collection<TodoItem>
+    {
 
     }
 

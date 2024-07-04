@@ -8,7 +8,7 @@ servers:
 security:
   - bearerAuth: [ ]
 paths:
-  /TodoItem/{id}:
+  /TodoItems/{id}:
     get:
       tags:
         - Todo
@@ -24,13 +24,7 @@ paths:
         '200':
           description: Success
           content:
-            text/plain:
-              schema:
-                $ref: '#/components/schemas/TodoItem'
             application/json:
-              schema:
-                $ref: '#/components/schemas/TodoItem'
-            text/json:
               schema:
                 $ref: '#/components/schemas/TodoItem'
         '401':
@@ -48,6 +42,102 @@ paths:
                 title: "Server error occurred."
                 status: 500,
                 traceId: c6b54e63-e576-4c14-8ccd-0315b60a1354
+    put:
+      tags:
+        - Todo
+      operationId: putTodoItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json: 
+            schema:
+              $ref: '#/components/schemas/TodoItem'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Unauthorized
+        '5XX':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+              example:
+                type: "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                title: "Server error occurred."
+                status: 500,
+                traceId: c6b54e63-e576-4c14-8ccd-0315b60a1354
+
+  /TodoItems:
+    get:
+      tags:
+        - Todo
+      operationId: getTodoItems
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoItems'
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Unauthorized
+        '5XX':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+              example:
+                type: "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                title: "Server error occurred."
+                status: 500,
+                traceId: c6b54e63-e576-4c14-8ccd-0315b60a1354        
+
+    post:
+      tags:
+        - Todo
+      operationId: postTodoItem
+      requestBody:
+        content:
+          application/json: 
+            schema:
+              $ref: '#/components/schemas/TodoItem'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoItem'
+        '401':
+          description: Unauthenticated
+        '403':
+          description: Unauthorized
+        '5XX':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/InternalError"
+              example:
+                type: "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+                title: "Server error occurred."
+                status: 500,
+                traceId: c6b54e63-e576-4c14-8ccd-0315b60a1354
+
+
 components:
   securitySchemes:
     bearerAuth:
@@ -81,3 +171,7 @@ components:
         isComplete:
           type: boolean
       additionalProperties: false
+    TodoItems:
+      type: array
+      items:
+        $ref: '#/components/schemas/TodoItem'
