@@ -66,12 +66,14 @@ A[Presentation]
 B[Infrastructure]
 C[Application]
 D[Domain]
-E[Data]
+E[Database]
+F[Cache]
 
 A --> C
 B --> C
 C --> D
-B -.-> E
+B --> E
+B --> F
 ```
 
 ## API Integration Tests
