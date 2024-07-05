@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using TodoList.Infrastructure.Extensions;
 
@@ -14,7 +15,10 @@ namespace TodoList.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastructure(Configuration);
+            services.AddDbContext<TodoContext>(opt =>
+                opt.UseInMemoryDatabase("TodoItemsDB"));
+
+            //services.AddInfrastructure(Configuration);
 
             services.AddCors(options =>
             {
@@ -32,8 +36,6 @@ namespace TodoList.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoList.Api", Version = "v1" });
             });
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
