@@ -92,8 +92,15 @@ In order to build and run the solution locally, we will need the following prere
 
 | Prerequisites | Description |
 |--|--|
-| [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) | .NET is the free, open-source, cross-platform framework. |
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Integrated application for building, running, and managing containers. |
+
+## Frameworks, Runtimes and SDKs
+
+| Prerequisites | Description |
+|--|--|
+| [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) | .NET is the free, open-source, cross-platform framework. |
+| [NodeJs](https://nodejs.org/en) | Node.js is a free, open-source, cross-platform JavaScript runtime environment. |
+
 
 ### Tools
 
@@ -166,6 +173,14 @@ Once there, go to:
 -   Delete domain security policies
 -   Enter in  `localhost` 
 -   Press the  **Delete**  button
+
+## See which containers are running after a docker compose
+
+`docker compose ps`
+
+## Stopping all the containers
+
+`docker compose down`
 
 ### Parameters
 
