@@ -1,0 +1,27 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sqlserver
+    environment:
+      # This is a developer secret and commonly available with the default SQL Server image
+      # We should never commit real secrets to source control
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "11433:1433"
+
+  redis:
+    container_name: redis
+    image: redis 
+    ports:
+      - 6379:6379
+
+  back-end-mock:
+    container_name: mockoon
+    image: mockoon/cli
+    command: --data data
+    volumes:
+      - ./mocks/front-end/data.json:/data:ro
+    ports:
+      - 4000:3000

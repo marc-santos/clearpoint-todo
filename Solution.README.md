@@ -88,19 +88,25 @@ You can clone the repository from https://github.com/DanielNieuwoudt/developer-a
 
 ## Building the containers
 
-To build or rebuild the containers, you can use:
+To build or rebuild all the containers, you can use:
 
  `docker compose build`
 
-To force a rebuild of the container without using cache:
+To force a rebuild of all containers without using cache:
 
 `docker compose build --no-cache`
 
-## Running the application
+## Running all the dependencies for developement
 
-To run the containers use:
+`docker compose -f .\docker-compose-deps.yaml up --build --detach --remove-orphans`
+
+## Running all the applications and their dependencies as a solution
 
 `docker compose up --build --remove-orphans --detach`
+
+## Parameters
+
+The following parameters are used when using `docker compose`
 
 | Parameter | Description |
 |--|--|
