@@ -119,8 +119,17 @@ The following dependencies are used in the form of containers to support the dev
 
 | Tool | Description |
 |--|--|
-| [MIcrosoft SQL Server](https://hub.docker.com/r/microsoft/mssql-server) | Official Microsoft SQL Server container image on Linux for Docker Engine. |
+| [Microsoft SQL Server](https://hub.docker.com/r/microsoft/mssql-server) | Official Microsoft SQL Server container image on Linux for Docker Engine. |
+| [OIDC Mock Server](https://github.com/Soluto/oidc-server-mock) | A project that allows you to run configurable mock server with OpenId Connect functionality. |
 | [Redis](https://hub.docker.com/_/redis/) | Redis is data platform used for caching. |
+
+### The docker compose files
+
+| File | Description |
+|--|--|
+| docker-compose-auth.yaml | The seperated definition and configuration for the authentication server.  |
+| docker-compose-deps.yaml | The seperated definition and configuration of development and solution dependencies. |
+| docker-compose.yaml | The full compose which includes the authentication server, dependencies and applications. |
 
 ### Port Mappings
 
@@ -128,6 +137,7 @@ Port mappings allow us to access the running containers, and for the runnning co
 
 | Container       | Host Port | Container Port |
 |-----------------|-----------|----------------|
+| Auth Server     | 5010      | 8080           |
 | Back End        | 5000      | 5000           |
 | Front End       | 3000      | 3000           |
 | Redis           | 6379      | 6379           |
