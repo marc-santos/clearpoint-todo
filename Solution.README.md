@@ -123,7 +123,7 @@ The following dependencies are used in the form of containers to support the dev
 | [OIDC Mock Server](https://github.com/Soluto/oidc-server-mock) | A project that allows you to run configurable mock server with OpenId Connect functionality. |
 | [Redis](https://hub.docker.com/_/redis/) | Redis is data platform used for caching. |
 
-### The docker compose files
+### Docker compose files
 
 | File | Description |
 |--|--|
@@ -208,15 +208,15 @@ The following parameters are used when using `docker compose`
 
 #### Generating the C# Controller
 
-After updating the Open API spesification we will need to generate the controller code. 
+After updating the Open API spesification we will need to regenerate the controller code. 
 
-- Using a bash terminal navigate to the /specs/back-end from the root of the closed repository.
+- Using a bash terminal navigate to the /specs/back-end from the root of the repository.
 
 - Execute the following bash script to regenerate the C# controller
 
     `./generate-controller.sh`
 
-#### EF Core Migrations
+#### Using EF Core Migrations
 
 From `/src/back-end` directory:
 
