@@ -17,7 +17,7 @@ services:
     ports:
       - 6379:6379
 
-  back-end-mock:
+  mocks:
     container_name: mockoon
     image: mockoon/cli
     command: --data data
@@ -25,3 +25,23 @@ services:
       - ./mocks/front-end/data.json:/data:ro
     ports:
       - 4000:3000
+
+  migrations:
+    container_name: migrations
+    image: migrations
+    build:
+      context: /src/back-end
+      dockerfile: ./Dockerfile.migrations
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 12
+        window: 120s
+    environment:
+      - APPLY_MIGRATION=true
+      - CONNECTION_STR=Server=sqlserver;Database=todo;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+    depends_on:
+      - mocks
+      - redis
+      - sqlserver

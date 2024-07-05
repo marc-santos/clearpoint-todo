@@ -7,7 +7,7 @@ services:
     container_name: back-end
     build:
       context: /src/back-end
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.backend
     environment:
       # These values are VERBATIM, do not include quotes unless they are needed in the actual value
       - ASPNETCORE_ENVIRONMENT=Development
@@ -21,7 +21,8 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - back-end-mock
+      - mocks
+      - migrations
       - redis
       - sqlserver
 
