@@ -7,7 +7,7 @@ services:
     container_name: backend
     build:
       context: /src/back-end
-      dockerfile: ./Dockerfile.backend
+      dockerfile: ./Backend.dockerfile
     environment:
       # These values are VERBATIM, do not include quotes unless they are needed in the actual value
       - ASPNETCORE_ENVIRONMENT=Development

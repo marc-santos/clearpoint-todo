@@ -34,7 +34,7 @@ services:
     image: migrations
     build:
       context: /src/back-end
-      dockerfile: ./Dockerfile.migrations
+      dockerfile: ./Migrations.dockerfile
     deploy:
       restart_policy:
         condition: on-failure

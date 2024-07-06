@@ -11,7 +11,7 @@ echo Waiting for WebApi...
 while [ $i -lt 30 ] && [ "${WEBAPISTATUS:-9}" -ne 0 ] ; do
 	i=$((i+1))
   set +e
-	curl -s "http://backend:5000/health/dependency" | grep -q 'Healthy'
+	curl -s "http://backend:5000/health/dependency" | grep -q '\"Status\": \"Healthy'
 	WEBAPISTATUS=$?
 	set -e
 	echo "WebApi status: $WEBAPISTATUS (attempt $i/90)"

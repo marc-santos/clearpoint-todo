@@ -91,6 +91,15 @@ Consider using versioning to support changes without disrupting existing clients
 #### Compliance
 Adhere to relevant legal and industry standards (e.g., GDPR, HIPAA).
 
+### Health Checks
+
+The Todo List API provides two health check endponts:
+
+| Endpoint | Description
+|----------| -----------
+| `/health` | Startup health check|
+| `/health/dependency` | Dependency health check that validates the state of the Redis Cache and SQL Server
+
 ### Application Architecture
 
 We prefer the use of Clean Architecture for our ASP.NET Web API, which organises our application into four main layers:
@@ -142,6 +151,10 @@ In collaboration with other members of the team, we ensure:
 
 ### Contract Tests
 
+Contract testing ensures that interactions between the front end and back end adhere to our predefined contract, reducing the risks of integration issues. 
+
+During development, it allows the team to detect breaking changes early in the development cycle, improving reliability and increasing the overall stability of our solution. 
+
 ## Front End 
 
 ### Application Architecture
@@ -178,6 +191,8 @@ The following dependencies are used in the _form of containers_ to support the d
 |--|--|
 | [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) | .NET is a free, open-source, cross-platform framework. |
 | [NodeJs](https://nodejs.org/en) | Node.js is a free, open-source, cross-platform JavaScript runtime environment. |
+
+**Note:** This solution uses NodeJs version 18.20.3
 
 ## Integrated Development Environments
 
@@ -282,6 +297,15 @@ Once there, go to:
 - Enter in  `localhost` 
 - Press the  **Delete** button
 
+## Checking the health of the backend
+
+You can check the health of the backend by using the following endpoints.
+
+| Endpoint | Description
+|----------| -----------
+| [/health](http://localhost:5000/health) | Startup health check|
+| [/health/dependency](http://localhost:5000/health/dependency) | Dependency health check that validates the state of the Redis Cache and SQL Server
+
 ## See which containers are running after a docker compose
 
 `docker compose ps`
@@ -300,11 +324,15 @@ The following parameters are used when using `docker compose`
 | remove-orphans | (Optional) Clean up services that are no longer defined in the compose YAML. |
 | detach | (Optional) Allows you to continue using the terminal for other tasks. |
 
-### For Software Engineers
+### Development activities
 
-#### Generating the C# Controller
+The following activies takes place during the course of development:
 
-After updating the Open API specification, we must regenerate the controller code. 
+#### Code Generation for the API Spesification
+
+After updating the Open API specification, we must regenerate the controller and client code to ensure they are up to date and match the Specification.
+
+##### C# Controller for the Todo List API
 
 - Navigate to the `/specs/back-end` from the repository's root using a bash terminal.
 
@@ -312,11 +340,19 @@ After updating the Open API specification, we must regenerate the controller cod
 
     `./generate-controller.sh`
 
+##### TypeScript Client for the Contract Tests
+
+- Navigate to the `/specs/back-end` from the repository's root using a bash terminal.
+
+- Execute the following bash script to regenerate the TypeScript Client
+
+    `./generate-test-client.sh`
+
 #### Using EF Core Migrations
 
 From `/src/back-end` directory:
 
-- Update to Latest DB After Pull
+- Update to the latest database
 
     <code>
     dotnet ef database update<br> 
@@ -325,7 +361,7 @@ From `/src/back-end` directory:
     &emsp;--context TodoList Infrastructure.Data.TodoListDbContext<br>
     </code>
 
-- List Migrations
+- List migrations
 
     <code>
     dotnet ef migrations list<br>
@@ -334,7 +370,7 @@ From `/src/back-end` directory:
     &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
     </code>
 
-- Create New Migration
+- Create a new migration
 
     <code>
     dotnet ef migrations add <MIGRATIONNAME><br>
@@ -343,7 +379,7 @@ From `/src/back-end` directory:
     &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
     </code>
 
-- Remove Last Migration (it if has been applied, need to roll back first -> see update)
+- Remove the last migration
 
     <code>
     dotnet ef migrations remove<br> 
@@ -352,4 +388,28 @@ From `/src/back-end` directory:
     &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
     </code>
 
-### For Quality Assurance Engineers
+#### Running the Contract Tests
+
+#### Ensure your dependencies are running 
+
+From the repositories root:
+
+- Start our development dependencies 
+
+    `docker compose -f .\docker-compose-deps.yaml up --build --remove-orphans --detach`
+
+- Start the Todo List API
+
+    This can be done using your IDE or the command line e.g. `dotnet run` in `/src/back-end/TodoList.Api`
+
+#### Run the contract tests
+
+From the `/tests/contract` directory uinsg a bash terminal
+
+- Ensure your NPM packages are up to date 
+
+    `npm i`
+
+- Run the contract tests
+
+    `npm run test`
