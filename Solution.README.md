@@ -213,7 +213,7 @@ Folders in our repository have been structured in the following way:
 | **mocks** | Mockoon JSON files representing the mocks used by the front. |
 | **specs** | Open API specification is used to generate the controller and clients. |
 | **src** | Source code for the front and back end.  |
-| **tests** | Contract and end-to-end automated tests.  |
+| **tests** | Contract, end-to-end and performance automated tests. |
 
 ### Docker compose files
 
