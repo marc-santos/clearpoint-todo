@@ -1,6 +1,6 @@
 # Documentation included in this repository
 
-The following file provides more information on both the assessment and solution.
+The following files, designed to provide a comprehensive understanding of the assessment and its solution, are included in this repository.
 
 | File                 | Decription                                                        |
 |----------------------|-------------------------------------------------------------------|
