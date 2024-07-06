@@ -3,11 +3,13 @@
 
 ## Goal
 
-This implementation provides an overview of the engineering practices, principles, tools, and utilities employed by software and quality assurance engineers. 
+### Statement
 
-Many of these elements are crucial for designing, developing, and testing applications that are maintainable, scalable, secure and ready for production.
+>**_We aim to create a platform that empowers team members to collaborate and perform at their best while balancing speed and quality to deliver value to our clients._**
 
-Our goal is to create a collaborative platform that empowers team members to perform at their best!
+### Approach
+
+This implementation provides an overview of the engineering practices, principles, tools, and utilities employed by software and quality assurance engineers. Many of these elements are crucial for designing, developing, and testing applications that are maintainable, scalable, secure and ready for production.
 
 ## Engineering practices and principles
 
@@ -48,7 +50,42 @@ Our goal is to create a collaborative platform that empowers team members to per
 
 ## Back End
 
-#### Application Architecture
+The following section reminds us of the considerations that need to be made when designing, building, and operating APIs.
+
+### Security
+
+#### Encryption 
+
+SSL will be offloaded to a load balancer or gateway provided by the cloud provider. The client will then securely communicate over HTTPS while the load balancer or gateway forwards the traffic to the backend container over HTTP. 
+
+#### Authentication and Authorisation
+
+JWTs will be used to secure the Todo List Web API by providing a stateless, compact, and self-contained method for authenticating and authorising users, ensuring only valid tokens can access protected resources. 
+
+JWTs embed user information and permissions within the token, improving scalability, reducing server load, and enhancing security.
+
+#### Scalability
+We want to design an API that can handle increasing loads, consider the use of caching and load balancing, and ensure that it can run on scalable infrastructure.
+
+#### Performance
+Aim to optimise response times with efficient code, database indexing, and minimising payload sizes.
+
+#### Reliability
+Ensure high availability with redundant systems, failover mechanisms, retry mechanisms, and robust error handling.
+
+#### Rate Limiting
+Aim to prevent abuse and ensure fair usage by limiting the number of requests a client can make.
+
+#### Monitoring
+Implement logging and monitoring to track usage and detect issues.
+
+#### Versioning
+Consider using versioning to support changes without disrupting existing clients or ensure that changes are always backward compatible.
+
+#### Compliance
+Adhere to relevant legal and industry standards (e.g., GDPR, HIPAA).
+
+### Application Architecture
 
 We prefer the use of Clean Architecture for our ASP.NET Web API, which organises our application into four main layers:
 
@@ -81,7 +118,7 @@ B --> E
 B --> F
 ```
 
-#### Contract first development
+### Contract first development
 
 We use a contract-first approach when designing and developing the Todo List API. 
 
@@ -97,13 +134,13 @@ In collaboration with other members of the team, we ensure:
 - Improves visibility and the opportunity to identify breaking changes as part of the Pull Request process.
 - Generate code for controllers and clients 
 
-#### Contract Tests
+### Contract Tests
 
-### Front End 
+## Front End 
 
-#### Application Architecture
+### Application Architecture
 
-#### End-to-End Tests
+### End-to-End Tests
 
 # Getting started
 
@@ -275,30 +312,38 @@ From `/src/back-end` directory:
 
 - Update to Latest DB After Pull
 
-    `dotnet ef database update 
-        --project TodoList.Infrastructure 
-        --startup-project TodoList.Api 
-        --context TodoList Infrastructure.Data.TodoListDbContext`
+    <code>
+    dotnet ef database update<br> 
+    &emsp;--project TodoList.Infrastructure<br>
+    &emsp;--startup-project TodoList.Api<br> 
+    &emsp;--context TodoList Infrastructure.Data.TodoListDbContext<br>
+    </code>
 
 - List Migrations
 
-    `dotnet ef migrations list 
-        --project TodoList.Infrastructure 
-        --startup-project TodoList.Api 
-        --context TodoList.Infrastructure.Data.TodoListDbContext`
+    <code>
+    dotnet ef migrations list<br>
+    &emsp;--project TodoList.Infrastructure<br>
+    &emsp;--startup-project TodoList.Api<br>
+    &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    </code>
 
 - Create New Migration
 
-    `dotnet ef migrations add <MIGRATIONNAME> 
-        --project TodoList.Infrastructure 
-        --startup-project TodoList.Api 
-        --context TodoList.Infrastructure.Data.TodoListDbContext`
+    <code>
+    dotnet ef migrations add <MIGRATIONNAME><br>
+    &emsp;--project TodoList.Infrastructure<br>
+    &emsp;--startup-project TodoList.Api<br>
+    &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    </code>
 
 - Remove Last Migration (it if has been applied, need to roll back first -> see update)
 
-    `dotnet ef migrations remove 
-        --project TodoList.Infrastructure 
-        --startup-project TodoList.Api 
-        --context TodoList.Infrastructure.Data.TodoListDbContext`
+    <code>
+    dotnet ef migrations remove<br> 
+    &emsp;--project TodoList.Infrastructure<br>
+    &emsp;--startup-project TodoList.Api<br> 
+    &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    </code>
 
 ### For Quality Assurance Engineers
