@@ -27,22 +27,24 @@ Our goal is to create a collaborative platform that empowers team members to per
 - **Purpose** -  Improve code structure and readability without changing functionality.
 - **Benefits** - Reduces technical debt, enhances maintainability, and improves performance.
 
+### Code Reviews
+- **Purpose** - Improve code quality, ensure adherence to coding standards, and facilitate knowledge sharing.
+
+- **Process** - Peer review of code changes before they are merged into the main codebase
+
 ### Continuous Integration and Continuous Deployment (CI/CD)
 - **CI** - Automatically integrating and testing code changes frequently.
+
 - **CD** - Automatically deploying code changes to dev, test, staging and production environments.
 
 > Although we do not automatically deploy our code as part of this assessment, a local development environment that resembles other environments has been provided.
-
-### Code Reviews
- - **Purpose** - Improve code quality, ensure adherence to coding standards, and facilitate knowledge sharing.-
- - **Process** - Peer review of code changes before they are merged into the main codebase
 
 ### Documentation
 - **Types** - Code comments, API documentation, user manuals, architecture diagrams.
 - **Benefits** - Facilitates understanding, maintenance, and onboarding of new developers.
 
 ### Version Control
- - **Purpose** - Enables tracking changes, collaborating with team members, and managing different code versions.
+- **Purpose** - Enables tracking changes, collaborating with team members, and managing different code versions.
 
 ## Back End
 
@@ -273,18 +275,30 @@ From `/src/back-end` directory:
 
 - Update to Latest DB After Pull
 
- `dotnet ef database update --project TodoList.Infrastructure --startup-project TodoList.Api --context TodoList Infrastructure.Data.TodoListDbContext`
+    `dotnet ef database update 
+        --project TodoList.Infrastructure 
+        --startup-project TodoList.Api 
+        --context TodoList Infrastructure.Data.TodoListDbContext`
 
 - List Migrations
 
-`dotnet ef migrations list --project TodoList.Infrastructure --startup-project TodoList.Api --context TodoList.Infrastructure.Data.TodoListDbContext`
+    `dotnet ef migrations list 
+        --project TodoList.Infrastructure 
+        --startup-project TodoList.Api 
+        --context TodoList.Infrastructure.Data.TodoListDbContext`
 
 - Create New Migration
 
-`dotnet ef migrations add <MIGRATIONNAME> --project TodoList.Infrastructure --startup-project TodoList.Api --context TodoList.Infrastructure.Data.TodoListDbContext`
+    `dotnet ef migrations add <MIGRATIONNAME> 
+        --project TodoList.Infrastructure 
+        --startup-project TodoList.Api 
+        --context TodoList.Infrastructure.Data.TodoListDbContext`
 
 - Remove Last Migration (it if has been applied, need to roll back first -> see update)
 
-`dotnet ef migrations remove --project TodoList.Infrastructure --startup-project TodoList.Api --context TodoList.Infrastructure.Data.TodoListDbContext`
+    `dotnet ef migrations remove 
+        --project TodoList.Infrastructure 
+        --startup-project TodoList.Api 
+        --context TodoList.Infrastructure.Data.TodoListDbContext`
 
 ### For Quality Assurance Engineers
