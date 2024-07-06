@@ -28,10 +28,10 @@ echo "Generating Open API client"
 rm -rf $clientOutput/${packageName:+$packageName/}**
 
 docker run --rm \
-    -v $apiSpecFileInput:/specifications \
-    -v $clientOutput:/tmp${packageName:+/src} \
-    openapitools/openapi-generator-cli:$openApiVersion generate \
-    -i /specifications/$apiSpecFile \
+    -v "$apiSpecFileInput:/specifications" \
+    -v "$clientOutput:/tmp${packageName:+/src}" \
+    "openapitools/openapi-generator-cli:$openApiVersion" generate \
+    -i "/specifications/$apiSpecFile" \
     --additional-properties $additionalProperties \
     --generator-name $generatorName \
     -o /tmp

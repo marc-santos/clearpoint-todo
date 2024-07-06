@@ -1,0 +1,6 @@
+./tests/contract/Dockerfile
+./tests/contract/Dockerfile.dockerignore
+./tests/contract/.gitignore
+./tests/contract/_testResults
+./tests/contract/node_modules
+./tests/contract/package-lock.json

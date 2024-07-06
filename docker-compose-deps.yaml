@@ -34,7 +34,7 @@ services:
     image: migrations
     build:
       context: /src/back-end
-      dockerfile: ./Dockerfile.migrations
+      dockerfile: ./Migrations.dockerfile
     deploy:
       restart_policy:
         condition: on-failure
@@ -45,6 +45,7 @@ services:
       - APPLY_MIGRATION=true
       - CONNECTION_STR=Server=sqlserver;Database=todo;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     depends_on:
+      - authserver
       - mocks
       - redis
       - sqlserver

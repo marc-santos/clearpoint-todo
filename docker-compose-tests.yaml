@@ -1,0 +1,16 @@
+include:
+  - docker-compose.yaml
+
+services:
+
+  contracts:
+    container_name: contracts
+    build:
+      context: .
+      dockerfile: ./tests/contract/Dockerfile
+    environment:
+      # These values are VERBATIM, do not include quotes unless they are needed in the actual value
+      - ENVIRONMENT_NAME=development
+    depends_on:
+      - migrations
+      - backend
