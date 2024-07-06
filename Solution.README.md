@@ -1,49 +1,44 @@
 
 # Welcome to the Todo List 
 
-## Solution Overview 
+## Engineering practices and principles
 
-```mermaid
-sequenceDiagram
-Alice ->> Bob: Hello Bob, how are you?
-Bob-->>John: How about you John?
-Bob--x Alice: I am good thanks!
-Bob-x John: I am good thanks!
-Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+### Agile
 
-Bob-->Alice: Checking with John...
-Alice->John: Yes... John, how are you?
-```
+- **Frameworks** - Scrum, Kanban, Lean.
+- **Principles** - Iterative development, flexibility, customer collaboration, and response to change.
 
-## Repository Structure
+### Application Architecture and Design Patterns 
+- **Purpose** - Provide proven solutions to common design problems.
 
-Folders in our repository has been structure in the following way:
+### Automated Testing
+- **Types** - Unit tests, contract tests, end-to-end tests.
+- **Benefits** - Detects bugs early, ensures new changes do not break existing functionality, and improves code reliability.
 
-|Folder| Decription |
-|--|--|
-| **mocks** | Mockoon json files representing the mocks used by the front and back end. |
-| **specs** | Open API spesification used for generating the controller and clients. |
-| **src** | Source code for the front and beack end.  |
+### Code Refactoring
+- **Purpose** -  Improve code structure and readability without changing its functionality.
+- **Benefits** - Reduces technical debt, enhances maintainability, and improves performance.
 
-## API Spesification
+### Continuous Integration and Continuous Deployment (CI/CD)
+- **CI** - Automatically integrating and testing code changes frequently.
+- **CD** - Automatically deploying code changes to dev, test, staging and production environments.
 
-We use a contract first approach when designing and developing the Todo List API. This is  done in collaboration with other members of the team to ensure we have:
+> Although we do not automatically deploy our code as part of this assessment, a local development environment has been provided that resembles other environments.
 
-- A documented representation of what we will be building. 
-- Allow for early validation that helps identify design issues.
-- Contain the endpoints, methods, request and response formats as well as the expected error codes.
-- Ensure that we reduce inconsistencies between what we have documented and what we are implementing.
-- Engineers in the same or diffirent teams can work in parallel once the contract is defined.
-- The front end and quality assurance engineers can start development against mock servers.
-- Provides a degree of safety when refactoring knowing that internal changes do not affect the API interface.
-- Improves visibility and the oppertunity to identify breaking changes as part of the Pull Request process.
-- Generate code for controllers and clients 
+### Code Reviews
+ - **Purpose** - Improve code quality, ensure adherence to coding standards, and facilitate knowledge sharing.-
+ - **Process** - Peer review of code changes before they are merged into the main codebase
 
-## Front End 
+### Documentation
+- **Types** - Code comments, API documentation, user manuals, architecture diagrams.
+- **Benefits** - Facilitates understanding, maintenance, and onboarding of new developers.
+
+### Version Control
+ - **Purpose** - Enables tracking changes, collaborating with team members, and managing different versions of code.
 
 ## Back End
 
-### Application Architecture
+#### Application Architecture
 
 We prefer the use of Clean Architecture for our ASP.NET Web API which organises our application into four main layers:
 
@@ -76,15 +71,31 @@ B --> E
 B --> F
 ```
 
-## API Integration Tests
+#### Contract first development
 
-## User Interface Tests
+We use a contract first approach when designing and developing the Todo List API. 
+
+This is  done in collaboration with other members of the team to ensure we have:
+
+- A documented representation of what we will be building. 
+- Allow for early validation that helps identify design issues.
+- Contain the endpoints, methods, request and response formats as well as the expected error codes.
+- Ensure that we reduce inconsistencies between what we have documented and what we are implementing.
+- Engineers in the same or diffirent teams can work in parallel once the contract is defined.
+- The front end and quality assurance engineers can start development against mock servers.
+- Provides a degree of safety when refactoring knowing that internal changes do not affect the API interface.
+- Improves visibility and the oppertunity to identify breaking changes as part of the Pull Request process.
+- Generate code for controllers and clients 
+
+#### Contract Tests
+
+### Front End 
+
+#### Application Architecture
+
+#### End-to-End Tests
 
 # Getting started
-
-## Cloning the repository
-
-You can clone the repository from https://github.com/DanielNieuwoudt/developer-assessment.git
 
 ## Prerequisites
 
@@ -94,13 +105,36 @@ In order to build and run the solution locally, we will need the following prere
 |--|--|
 | [Docker Desktop](https://www.docker.com/products/docker-desktop/) | Integrated application for building, running, and managing containers. |
 
+## Dependencies
+
+The following dependencies are used in the _form of containers_ to support the development exprience and solution:
+
+> There is _no need_ to install these dependencies.
+
+| Tool | Description |
+|--|--|
+| [Microsoft SQL Server](https://hub.docker.com/r/microsoft/mssql-server) | Official Microsoft SQL Server container image on Linux for Docker Engine. |
+| [OIDC Mock Server](https://github.com/Soluto/oidc-server-mock) | A project that allows you to run configurable mock server with OpenId Connect functionality. |
+| [Redis](https://hub.docker.com/_/redis/) | Redis is data platform used for caching. |
+
 ## Frameworks, Runtimes and SDKs
+
+> To make changes to the solution, the following frameworks, runtimes and SDKs would need to be installed.
 
 | Prerequisites | Description |
 |--|--|
 | [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) | .NET is the free, open-source, cross-platform framework. |
 | [NodeJs](https://nodejs.org/en) | Node.js is a free, open-source, cross-platform JavaScript runtime environment. |
 
+## Integrated Development Environments
+
+You are free to use an IDE of your choosing. Common IDEs that work with the solution are:
+
+| IDE | Description |
+|--|--|
+| [Jetbrain Rider](https://www.jetbrains.com/rider/) | The world's most loved .NET and game dev IDE. |
+| [Visual Studio](https://visualstudio.microsoft.com/) | The Visual Studio IDE is a creative launching pad that you can use to edit, debug, and build code, and then publish an app. |
+| [Visual Studio Code](https://code.visualstudio.com/) | Visual Studio Code is a free source code editor that runs on your desktop and supports various languages and runtimes. |
 
 ### Tools
 
@@ -113,15 +147,20 @@ For the best local developement and quality assurance experience we recommended 
 | [Redis Insights](https://redis.io/insight/) | Redis Insight lets you visually interact with a Redis Cache. |
 | [SSMS](https://redis.io/insight/) | SQL Server Management Studio (SSMS) is an integrated environment for managing any SQL infrastructure. |
 
-### Dependencies
+## Cloning the repository
 
-The following dependencies are used in the form of containers to support the development exprience and solution:
+You can clone the repository from https://github.com/DanielNieuwoudt/developer-assessment.git
 
-| Tool | Description |
+## Repository Structure
+
+Folders in our repository has been structure in the following way:
+
+|Folder| Decription |
 |--|--|
-| [Microsoft SQL Server](https://hub.docker.com/r/microsoft/mssql-server) | Official Microsoft SQL Server container image on Linux for Docker Engine. |
-| [OIDC Mock Server](https://github.com/Soluto/oidc-server-mock) | A project that allows you to run configurable mock server with OpenId Connect functionality. |
-| [Redis](https://hub.docker.com/_/redis/) | Redis is data platform used for caching. |
+| **mocks** | Mockoon json files representing the mocks used by the front. |
+| **specs** | Open API spesification used for generating the controller and clients. |
+| **src** | Source code for the front and back end.  |
+| **tests** | Contract and end-to-end automated tests.  |
 
 ### Docker compose files
 
@@ -141,8 +180,10 @@ Port mappings allow us to access the running containers, and for the runnning co
 | Back End        | 5000      | 5000           |
 | Front End       | 3000      | 3000           |
 | Redis           | 6379      | 6379           |
-| SQL Server      | 11433     | 1433           |
+| SQL Server      | 1433      | 1433           |
 | Mockoon         | 4000      | 3000           |
+
+> If Microsoft SQL Server is installed on the local machine, you may need to change the port.
 
 ## Building the containers
 

@@ -12,7 +12,7 @@ services:
       SA_PASSWORD: "YourStrong!Passw0rd"
       ACCEPT_EULA: "Y"
     ports:
-      - "11433:1433"
+      - "1433:1433"
 
   redis:
     container_name: redis
