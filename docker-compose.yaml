@@ -3,8 +3,8 @@ include:
 
 services:
 
-  back-end:
-    container_name: back-end
+  backend:
+    container_name: backend
     build:
       context: /src/back-end
       dockerfile: ./Dockerfile.backend
@@ -13,25 +13,25 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
       # Needed as an override of default appsettings
-      - CacheConfiguration__ConnectionString=redis:6379
-      - CacheConfiguration__Enabled=true
+      - ConnectionStrings__RedisCache=redis:6379,password=,ssl=False,abortConnect=False
       # This is a developer secret and commonly available with the default SQL Server image
       # We should never commit real secrets to source control
-      - DbConfiguration__ConnectionString=Server=sqlserver;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ConnectionStrings__SqlServer=Server=sqlserver;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     ports:
       - "5000:5000"
     depends_on:
+      - authserver
       - mocks
       - migrations
       - redis
       - sqlserver
 
-  front-end:
-    container_name: front-end
+  frontend:
+    container_name: frontend
     build:
       context: /src/front-end
       dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
     depends_on:
-      - back-end
+      - backend
