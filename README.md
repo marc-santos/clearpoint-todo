@@ -1,6 +1,6 @@
 # Documentation included in this repository
 
-The files below will provide the needed information 
+The following file provides more information on both the assessment and solution.
 
 | File                 | Decription                                                        |
 |----------------------|-------------------------------------------------------------------|
