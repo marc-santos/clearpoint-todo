@@ -236,6 +236,7 @@ Folders in our repository have been structured in the following way:
 |--|--|
 | docker-compose-auth.yaml | The separated definition and configuration for the mock authentication server.  |
 | docker-compose-deps.yaml | The separated definition and configuration of development and solution dependencies. |
+| docker-compose-tests.yaml | The full compose which includes and executes the contract tests. |
 | docker-compose.yaml | The full compose includes the authentication server, dependencies, and applications. |
 
 ### Port Mappings
