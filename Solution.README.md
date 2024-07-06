@@ -11,6 +11,12 @@
 
 This implementation provides an overview of the engineering practices, principles, tools, and utilities employed by software and quality assurance engineers. Many of these elements are crucial for designing, developing, and testing applications that are maintainable, scalable, secure and ready for production.
 
+### In practice
+
+Although the implementation is a simplified version of a real-world application, it provides a glimpse into the practices and principles essential for building and operating a production-ready application. 
+
+We may use some or all of the elements for a real-world project depending on the application's complexity, requirements, and constraints.
+
 ## Engineering practices and principles
 
 ### Agile
