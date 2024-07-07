@@ -302,13 +302,17 @@ To force a rebuild of all containers without using cache:
 
 `docker compose build --no-cache`
 
-## Running all the dependencies for development
+## Running the dependencies for local development
 
 `docker compose -f .\docker-compose-deps.yaml up --build --detach --remove-orphans`
 
-## Running all the applications and their dependencies as a solution
+## Running the solution and its dependencies
 
-`docker compose up --build --remove-orphans --detach`
+`docker compose up --build --remove-orphans`
+
+## Running the solution and the automated tests
+
+`docker compose -f .\docker-compose-tests.yaml up --build --remove-orphans`
 
 ## Accessing the applications
 
