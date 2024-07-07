@@ -168,7 +168,7 @@ components:
           format: uuid
         description:
           type: string
-        isComplete:
+        isCompleted:
           type: boolean
       additionalProperties: false
     TodoItems:
