@@ -6,7 +6,7 @@ export function createApiClient(): AxiosInstance {
 
     let environment = (process.env.ENVIRONMENT_NAME || "local").toLowerCase();
         
-    if (environment === "local" || environment === "docker" || environment === "development") {
+    if (environment === "local" || environment === "development") {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
         agent = axios.create({
             httpsAgent: new https.Agent({

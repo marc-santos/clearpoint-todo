@@ -92,8 +92,8 @@ namespace TodoList.Api.Generated
         [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("isComplete", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public bool IsComplete { get; set; } = default!;
+        [Newtonsoft.Json.JsonProperty("isCompleted", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsCompleted { get; set; } = default!;
 
     }
 

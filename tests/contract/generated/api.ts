@@ -77,7 +77,7 @@ export interface TodoItem {
      * @type {boolean}
      * @memberof TodoItem
      */
-    'isComplete'?: boolean;
+    'isCompleted'?: boolean;
 }
 
 /**
