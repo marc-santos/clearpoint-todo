@@ -166,6 +166,14 @@ C --> D
 B --> E
 B --> F
 ```
+### Libraries
+
+We have selected the the following libraries for our implementation:
+
+|Library|Description|
+|-|-|
+| [Fluent Validation](https://github.com/FluentValidation/FluentValidation) | FluentValidation is a .NET library for building strongly-typed validation rules. |
+| [MediatR](https://github.com/jbogard/MediatR) | Simple mediator implementation in .NET. In-process messaging with no dependencies. |
 
 ### Contract first development
 

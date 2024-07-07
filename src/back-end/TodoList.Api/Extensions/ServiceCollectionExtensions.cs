@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TodoList.Api.Extensions
 {
+    [ExcludeFromCodeCoverage(Justification = "Wiring")]
     public static class ServiceCollectionExtensions
     {
         private static readonly string[] Dependency = ["dependency"];

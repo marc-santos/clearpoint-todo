@@ -1,7 +1,9 @@
-﻿using TodoList.Api.Startup;
+﻿using System.Diagnostics.CodeAnalysis;
+using TodoList.Api.Startup;
 
 namespace TodoList.Api.Extensions
 {
+    [ExcludeFromCodeCoverage(Justification = "Wiring")]
     public static class WebApplicationExtensions
     {
         public static void ConfigureApi(this WebApplication app, IConfiguration configuration, IHostEnvironment environment)
