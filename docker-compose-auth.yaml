@@ -82,7 +82,7 @@ services:
               "Password":"pwd",
               "Claims": [
                 {
-                  "Type": "name",
+                  "Type": "Name",
                   "Value": "user",
                   "ValueType": "string"
                 },
@@ -92,8 +92,8 @@ services:
                   "ValueType": "string"
                 },
                 {
-                  "Type": "user",
-                  "Value":  "0"
+                  "Type": "Role",
+                  "Value":  "user"
                 }
               ]
             }
