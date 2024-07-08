@@ -162,10 +162,14 @@ F[Cache]
 
 A --> C
 B --> C
-C --> D
+C -.-> D
 B --> E
-B --> F
+B -.-> F
+
+style D stroke-dasharray: 5, 5
+style F stroke-dasharray: 5, 5
 ```
+
 ### Libraries
 
 We have selected the the following libraries for our implementation:
@@ -424,6 +428,7 @@ From `/src/back-end` directory:
     &emsp;--project TodoList.Infrastructure<br>
     &emsp;--startup-project TodoList.Api<br>
     &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    &emsp;[MigrationName]
     </code>
 
 - Remove the last migration
