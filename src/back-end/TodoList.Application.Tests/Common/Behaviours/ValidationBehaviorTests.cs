@@ -2,12 +2,12 @@
 using FluentAssertions;
 using FluentValidation;
 using MediatR;
-using TodoList.Application.Behaviours;
+using TodoList.Application.Common.Behaviours;
 
-namespace TodoList.Application.Tests.Behaviours
+namespace TodoList.Application.Tests.Common.Behaviours
 {
     [ExcludeFromCodeCoverage(Justification = "Tests")]
-    public class TestBehaviour 
+    public class TestBehaviour
     {
         public class Request(Guid id) : IRequest<Result>
         {
@@ -42,7 +42,7 @@ namespace TodoList.Application.Tests.Behaviours
     {
         [Theory]
         [InlineData(true)]
-        [InlineData( false)]
+        [InlineData(false)]
         public async Task GivenRequest_When_Handle_Then_ShouldThrowValidationExceptionIfValidationFails(bool shouldThrow)
         {
             var validators = new List<TestBehaviour.TestBehaviourValidator>
@@ -51,8 +51,8 @@ namespace TodoList.Application.Tests.Behaviours
             };
 
             var validationBehavior = new ValidationBehavior<TestBehaviour.Request, TestBehaviour.Result>(validators);
-            var guid = shouldThrow ? 
-                Guid.Empty : 
+            var guid = shouldThrow ?
+                Guid.Empty :
                 Guid.NewGuid();
 
             Func<Task<TestBehaviour.Result>> result = async () =>

@@ -4,11 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TodoList.Infrastructure.Data;
 
 #nullable disable
 
-namespace TodoList.Infrastructure.Migrations
+namespace TodoList.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
     [Migration("20240705051111_InitialCreate")]

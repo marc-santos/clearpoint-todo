@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TodoList.Infrastructure.Data;
+using TodoList.Infrastructure.Persistence;
 
 namespace TodoList.Infrastructure.Extensions
 {
