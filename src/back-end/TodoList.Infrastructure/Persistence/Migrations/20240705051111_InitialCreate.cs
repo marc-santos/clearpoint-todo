@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TodoList.Infrastructure.Migrations
+namespace TodoList.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -10,7 +10,7 @@ ENV NUGET_PACKAGES="/etc/app/nuget"
 RUN dotnet tool install --global dotnet-ef
 
 COPY . .
-RUN dotnet ef migrations bundle --configuration release --project TodoList.Infrastructure --startup-project TodoList.Api --context TodoList.Infrastructure.Data.TodoListDbContext --self-contained -o ./TodoList.Infrastructure/efbundle
+RUN dotnet ef migrations bundle --configuration release --project TodoList.Infrastructure --startup-project TodoList.Api --context TodoList.Infrastructure.Persistence.TodoListDbContext --self-contained -o ./TodoList.Infrastructure/efbundle
 
 COPY ./run-bundle.sh ./TodoList.Infrastructure/run-bundle.sh
 

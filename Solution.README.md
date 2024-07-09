@@ -136,7 +136,7 @@ The Todo List API provides two health check endponts:
 
 ### Application Architecture
 
-We prefer the use of Clean Architecture for our ASP.NET Web API, which organises our application into four main layers:
+We prefer the use of Clean Architecture and Domain Driver Design for our ASP.NET Web API, which organises our application into four main layers:
 
 - Presentation - The API is the entry point for communication with the application.
 - Application - Business logic specific to the use cases in our application.
@@ -409,7 +409,7 @@ From `/src/back-end` directory:
     dotnet ef database update<br> 
     &emsp;--project TodoList.Infrastructure<br>
     &emsp;--startup-project TodoList.Api<br> 
-    &emsp;--context TodoList Infrastructure.Data.TodoListDbContext<br>
+    &emsp;--context TodoList Infrastructure.Persistence.TodoListDbContext<br>
     </code>
 
 - List migrations
@@ -418,7 +418,7 @@ From `/src/back-end` directory:
     dotnet ef migrations list<br>
     &emsp;--project TodoList.Infrastructure<br>
     &emsp;--startup-project TodoList.Api<br>
-    &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    &emsp;--context TodoList.Infrastructure.Persistence.TodoListDbContext<br>
     </code>
 
 - Create a new migration
@@ -427,7 +427,7 @@ From `/src/back-end` directory:
     dotnet ef migrations add <MIGRATIONNAME><br>
     &emsp;--project TodoList.Infrastructure<br>
     &emsp;--startup-project TodoList.Api<br>
-    &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    &emsp;--context TodoList.Infrastructure.Persistence.TodoListDbContext<br>
     &emsp;[MigrationName]
     </code>
 
@@ -437,7 +437,7 @@ From `/src/back-end` directory:
     dotnet ef migrations remove<br> 
     &emsp;--project TodoList.Infrastructure<br>
     &emsp;--startup-project TodoList.Api<br> 
-    &emsp;--context TodoList.Infrastructure.Data.TodoListDbContext<br>
+    &emsp;--context TodoList.Infrastructure.Persistence.TodoListDbContext<br>
     </code>
 
 #### Running the Contract Tests

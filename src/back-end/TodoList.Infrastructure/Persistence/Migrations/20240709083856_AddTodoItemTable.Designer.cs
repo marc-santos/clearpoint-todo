@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TodoList.Infrastructure.Data;
+using TodoList.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace TodoList.Infrastructure.Migrations
+namespace TodoList.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
-    [Migration("20240708085944_CreateTodoItemsTable")]
-    partial class CreateTodoItemsTable
+    [Migration("20240709083856_AddTodoItemTable")]
+    partial class AddTodoItemTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,10 +25,9 @@ namespace TodoList.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TodoList.Infrastructure.Data.Models.TodoItemDto", b =>
+            modelBuilder.Entity("TodoList.Domain.TodoItems.Entities.TodoItem", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id");
 
@@ -38,20 +37,21 @@ namespace TodoList.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("description");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_completed");
 
                     b.Property<DateTimeOffset>("ModifiedAt")
                         .HasColumnType("datetimeoffset")
                         .HasColumnName("modified_at");
 
-                    b.Property<bool>("isCompleted")
-                        .HasColumnType("bit")
-                        .HasColumnName("is_completed");
-
                     b.HasKey("Id");
 
-                    b.ToTable("todo_items");
+                    b.ToTable("todo_items", (string)null);
                 });
 #pragma warning restore 612, 618
         }
