@@ -162,20 +162,20 @@ F[Cache]
 
 A --> C
 B --> C
-C -.-> D
+C --> D
 B --> E
 B -.-> F
 
-style D stroke-dasharray: 5, 5
 style F stroke-dasharray: 5, 5
 ```
 
-### Libraries
+### Framworks and Libraries
 
 We have selected the the following libraries for our implementation:
 
-|Library|Description|
+|Framework / Library|Description|
 |-|-|
+| [EF Core](https://learn.microsoft.com/en-us/ef/core/) | Entity Framework (EF) Core is a lightweight, extensible, open source and cross-platform version of the popular Entity Framework data access technology. |
 | [Fluent Validation](https://github.com/FluentValidation/FluentValidation) | FluentValidation is a .NET library for building strongly-typed validation rules. |
 | [MediatR](https://github.com/jbogard/MediatR) | Simple mediator implementation in .NET. In-process messaging with no dependencies. |
 
