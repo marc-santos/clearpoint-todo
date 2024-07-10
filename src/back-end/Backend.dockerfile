@@ -11,10 +11,8 @@ COPY . .
 RUN dotnet restore \
     "TodoList.Api.sln"
 
-WORKDIR "/src/TodoList.Api"
-
 RUN dotnet build \ 
-    "TodoList.Api.csproj" \ 
+    "./TodoList.Api/TodoList.Api.csproj" \ 
     --no-restore \ 
     -c Release \ 
     -o /app/build
@@ -24,14 +22,13 @@ RUN dotnet test \
     --collect:"XPlat Code Coverage" \
     /p:CollectCoverage=true \
     /p:CoverletOutputFormat=cobertura \
-    --no-build \
     --no-restore \
     -c Release \
     --results-directory \
     ./TestResults
 
 FROM build AS publish
-RUN dotnet publish "TodoList.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./TodoList.Api/TodoList.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

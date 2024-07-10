@@ -21,8 +21,6 @@ namespace TodoList.Domain.TodoItems.ValueObjects
             return new TodoItemId(value);
         }
 
-        public static implicit operator Guid(TodoItemId todoItemId) => todoItemId.Value;
-
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;
