@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Diagnostics.CodeAnalysis;
-using TodoList.Domain.TodoItems.Entities;
+using TodoList.Domain.TodoItems;
 using TodoList.Domain.TodoItems.ValueObjects;
 
 namespace TodoList.Infrastructure.Persistence.Configurations

@@ -2,4 +2,10 @@
 
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
 
+  <ItemGroup>
+    <Compile Remove="TodoItemAggregates\**" />
+    <EmbeddedResource Remove="TodoItemAggregates\**" />
+    <None Remove="TodoItemAggregates\**" />
+  </ItemGroup>
+
 </Project>

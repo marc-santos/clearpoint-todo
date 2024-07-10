@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TodoList.Domain.TodoItems.Entities;
+using TodoList.Domain.TodoItems;
 
 namespace TodoList.Infrastructure.Persistence
 {

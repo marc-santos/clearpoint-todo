@@ -2,7 +2,7 @@
 
 namespace TodoList.Domain.TodoItems.ValueObjects
 {
-    public class TodoItemId : ValueObject
+    public sealed class TodoItemId : ValueObject
     {
         public Guid Value { get; }
 

@@ -1,9 +1,9 @@
 ﻿using TodoList.Domain.Common.Models;
 using TodoList.Domain.TodoItems.ValueObjects;
 
-namespace TodoList.Domain.TodoItems.Entities
+namespace TodoList.Domain.TodoItems
 {
-    public sealed class TodoItem : Entity<TodoItemId> 
+    public sealed class TodoItem :  AggregateRoot<TodoItemId>
     {
         public TodoItem(TodoItemId id, string description, bool isCompleted, DateTimeOffset createdAt, DateTimeOffset modifiedAt) : base(id)
         {
