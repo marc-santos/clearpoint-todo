@@ -34,7 +34,7 @@
             return Id.GetHashCode();
         }
 
-        #region EF Core
+        #region Required for EF Core
 
         #pragma warning disable CS8618
         protected Entity()

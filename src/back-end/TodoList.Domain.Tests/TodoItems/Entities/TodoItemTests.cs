@@ -25,5 +25,31 @@ namespace TodoList.Domain.Tests.TodoItems.Entities
             todoItem.CreatedAt.Should().Be(createdAt);
             todoItem.ModifiedAt.Should().Be(modifiedAt);
         }
+
+        [Fact]
+        public void Given_TodoItem_When_MarkAsCompleted_Then_IsCompletedIsTrue()
+        {
+            var todoItem = new TodoItem(new TodoItemId(Guid.NewGuid()), "Test", false, DateTimeOffset.Now, DateTimeOffset.Now);
+
+            todoItem.MarkAsCompleted();
+
+            todoItem.IsCompleted
+                .Should()
+                .BeTrue();
+        }
+
+        [Fact]
+        public void Given_TodoItem_When_SetModified_Then_ModifiedAtIsNow()
+        {
+            var modifiedAt = DateTimeOffset.Now;
+
+            var todoItem = new TodoItem(new TodoItemId(Guid.NewGuid()), "Test", false, DateTimeOffset.Now, modifiedAt);
+
+            todoItem.SetModified();
+
+            todoItem.ModifiedAt
+                .Should()
+                .BeAfter(modifiedAt);
+        }
     }
 }

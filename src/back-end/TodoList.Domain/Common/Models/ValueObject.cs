@@ -39,7 +39,7 @@
                 .Aggregate((x, y) => x ^ y);
         }
 
-        #region EF Core
+        #region Required for EF Core
 
         #pragma warning disable CS8618
         protected ValueObject()
