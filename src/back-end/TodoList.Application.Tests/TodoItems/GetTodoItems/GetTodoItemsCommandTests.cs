@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace TodoList.Application.Tests.TodoItems.List
+namespace TodoList.Application.Tests.TodoItems.GetTodoItems
 {
     [ExcludeFromCodeCoverage(Justification = "Tests")]
-    public class ResultTests
+    public class GetTodoItemsCommandTests
     {
     }
 }

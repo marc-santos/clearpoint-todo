@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
-using TodoList.Domain.TodoItems.Entities;
+using TodoList.Domain.TodoItems;
 using TodoList.Domain.TodoItems.ValueObjects;
 
-namespace TodoList.Domain.Tests.TodoItems.Entities
+namespace TodoList.Domain.Tests.TodoItems
 {
     [ExcludeFromCodeCoverage(Justification = "Tests")]
     public class TodoItemTests
