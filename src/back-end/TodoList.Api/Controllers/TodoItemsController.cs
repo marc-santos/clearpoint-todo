@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
+using TodoList.Application.TodoItems.GetTodoItems;
 
 namespace TodoList.Api.Controllers
 {
@@ -12,20 +11,27 @@ namespace TodoList.Api.Controllers
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
+        private readonly IMapper _mapper;
+        private readonly ISender _sender;
         private readonly ILogger<TodoItemsController> _logger;
 
-        public TodoItemsController(TodoContext context, ILogger<TodoItemsController> logger)
+        public TodoItemsController(TodoContext context, IMapper mapper, ISender sender, ILogger<TodoItemsController> logger)
         {
-            _context = context;
-            _logger = logger;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _sender = sender ?? throw new ArgumentNullException(nameof(sender));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        // GET: api/TodoItems
         [HttpGet]
-        public async Task<IActionResult> GetTodoItems()
+        public async Task<IActionResult> GetTodoItems(CancellationToken cancellationToken)
         {
-            var results = await _context.TodoItems.Where(x => !x.IsCompleted).ToListAsync();
-            return Ok(results);
+            _logger.LogInformation("Getting all todo items");
+
+            var results = await _sender.Send(new GetTodoItemsQuery(), cancellationToken);
+            var todoItems = _mapper.Map<IEnumerable<Generated.TodoItem>>(results.TodoItems);
+
+            return Ok(todoItems);
         }
 
         // GET: api/TodoItems/...

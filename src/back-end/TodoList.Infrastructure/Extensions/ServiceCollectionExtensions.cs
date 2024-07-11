@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TodoList.Application.Contracts;
 using TodoList.Infrastructure.Persistence;
+using TodoList.Infrastructure.Persistence.Repositories;
 
 namespace TodoList.Infrastructure.Extensions
 {
@@ -15,6 +17,8 @@ namespace TodoList.Infrastructure.Extensions
             services.AddDbContext<TodoListDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("SqlServer"),
                     b => b.MigrationsAssembly(typeof(TodoListDbContext).Assembly.FullName)));
+
+            services.AddScoped<ITodoItemsRepository, TodoItemsRepository>();
 
             return services;
         }
