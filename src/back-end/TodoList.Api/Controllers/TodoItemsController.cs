@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
+using TodoList.Application.TodoItems.GetTodoItems;
 
 namespace TodoList.Api.Controllers
 {
@@ -12,20 +14,22 @@ namespace TodoList.Api.Controllers
     public class TodoItemsController : ControllerBase
     {
         private readonly TodoContext _context;
+        private readonly ISender _sender;
         private readonly ILogger<TodoItemsController> _logger;
 
-        public TodoItemsController(TodoContext context, ILogger<TodoItemsController> logger)
+        public TodoItemsController(TodoContext context, ISender sender, ILogger<TodoItemsController> logger)
         {
             _context = context;
+            _sender = sender;
             _logger = logger;
         }
 
-        // GET: api/TodoItems
         [HttpGet]
-        public async Task<IActionResult> GetTodoItems()
+        public async Task<IActionResult> GetTodoItems(CancellationToken cancellationToken)
         {
-            var results = await _context.TodoItems.Where(x => !x.IsCompleted).ToListAsync();
-            return Ok(results);
+            var results = await _sender.Send(new GetTodoItemsQuery(), cancellationToken);
+
+            return Ok(results.TodoItems);
         }
 
         // GET: api/TodoItems/...
