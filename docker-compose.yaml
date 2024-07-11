@@ -16,7 +16,7 @@ services:
       - ConnectionStrings__RedisCache=redis:6379,password=,ssl=False,abortConnect=False
       # This is a developer secret and commonly available with the default SQL Server image
       # We should never commit real secrets to source control
-      - ConnectionStrings__SqlServer=Server=sqlserver;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ConnectionStrings__SqlServer=Server=sqlserver;Database=todo;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     ports:
       - "5000:5000"
     depends_on:
