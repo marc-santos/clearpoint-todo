@@ -175,6 +175,7 @@ We have selected the the following libraries for our implementation:
 
 |Framework / Library|Description|
 |-|-|
+| [AutoMapper](https://github.com/AutoMapper/AutoMapper) | A convention-based object-object mapper. |
 | [EF Core](https://learn.microsoft.com/en-us/ef/core/) | Entity Framework (EF) Core is a lightweight, extensible, open source and cross-platform version of the popular Entity Framework data access technology. |
 | [Fluent Validation](https://github.com/FluentValidation/FluentValidation) | FluentValidation is a .NET library for building strongly-typed validation rules. |
 | [MediatR](https://github.com/jbogard/MediatR) | Simple mediator implementation in .NET. In-process messaging with no dependencies. |

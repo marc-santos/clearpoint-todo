@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
+using TodoList.Api.Profiles;
 
 namespace TodoList.Api.Extensions
 {
@@ -15,6 +16,11 @@ namespace TodoList.Api.Extensions
             services.AddDbContext<TodoContext>(opt =>
                 opt.UseInMemoryDatabase("TodoItemsDB"));
             
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile(typeof(TodoItemsProfile));
+            });
+
             services.AddHealthChecks()
                 .AddSqlServer(
                     connectionString: configuration.GetConnectionString("SqlServer")!,
