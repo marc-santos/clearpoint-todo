@@ -3,7 +3,7 @@
 namespace TodoList.Application.Tests.TodoItems.GetTodoItems
 {
     [ExcludeFromCodeCoverage(Justification = "Tests")]
-    public class GetTodoItemsCommandTests
+    public class GetTodoItemsQueryTests
     {
     }
 }

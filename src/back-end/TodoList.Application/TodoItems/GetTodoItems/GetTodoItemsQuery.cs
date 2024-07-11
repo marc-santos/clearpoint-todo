@@ -2,4 +2,4 @@
 
 namespace TodoList.Application.TodoItems.GetTodoItems;
 
-public sealed record GetTodoItemsCommand() : IRequest<Result>;
+public sealed record GetTodoItemsQuery() : IRequest<Result>;
