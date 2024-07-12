@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using TodoList.Application.TodoItems.GetTodoItems;
+using TodoList.Application.TodoItems.Queries.GetTodoItem;
 
 namespace TodoList.Api.Controllers
 {
@@ -34,18 +35,17 @@ namespace TodoList.Api.Controllers
             return Ok(todoItems);
         }
 
-        // GET: api/TodoItems/...
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodoItem(Guid id)
         {
-            var result = await _context.TodoItems.FindAsync(id);
+            var result = await _sender.Send(new GetTodoItemQuery(id));
 
-            if (result == null)
+            if (!result.IsFound)
             {
                 return NotFound();
             }
-
-            return Ok(result);
+            var todoItem = _mapper.Map<Generated.TodoItem>(result.TodoItem);
+            return Ok(todoItem);
         }
 
         // PUT: api/TodoItems/... 

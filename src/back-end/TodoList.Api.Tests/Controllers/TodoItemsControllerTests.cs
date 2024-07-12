@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using TodoList.Api.Controllers;
-using TodoList.Api.Profiles;
+using TodoList.Api.Mapping;
 using TodoList.Application.TodoItems.GetTodoItems;
 using Xunit;
 

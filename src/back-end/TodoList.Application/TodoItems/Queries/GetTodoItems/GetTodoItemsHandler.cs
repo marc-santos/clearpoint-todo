@@ -5,7 +5,7 @@ using TodoList.Domain.TodoItems;
 
 namespace TodoList.Application.TodoItems.GetTodoItems
 {
-    public sealed record GetTodoItemsResult (IEnumerable<TodoItem> TodoItems) : IRequest<GetTodoItemsResult>;
+    public sealed record GetTodoItemsResult (IEnumerable<TodoItem> TodoItems);
 
     public sealed class GetTodoItemsHandler(ITodoItemsRepository repository, ILogger<GetTodoItemsHandler> logger) : IRequestHandler<GetTodoItemsQuery, GetTodoItemsResult>
     {
@@ -21,7 +21,7 @@ namespace TodoList.Application.TodoItems.GetTodoItems
 
             var todoItems = await _repository.GetTodoItemsAsync(cancellationToken);
 
-            _logger.LogInformation("Retrieved todo items.");
+            _logger.LogInformation("Returning todo items.");
 
             return new GetTodoItemsResult(todoItems.ToList());
         }

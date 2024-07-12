@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
-using TodoList.Api.Profiles;
+using TodoList.Api.Mapping;
 
 namespace TodoList.Api.Extensions
 {
