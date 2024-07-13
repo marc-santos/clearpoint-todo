@@ -1,4 +1,6 @@
-﻿namespace TodoList.Domain.Common.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace TodoList.Domain.Common.Models
 {
     public abstract class ValueObject : IEquatable<ValueObject>
     {
@@ -39,14 +41,11 @@
                 .Aggregate((x, y) => x ^ y);
         }
 
-        #region Required for EF Core
-
         #pragma warning disable CS8618
+        [ExcludeFromCodeCoverage(Justification = "Required by EF Core")]
         protected ValueObject()
         {
         }
         #pragma warning restore CS8618
-
-        #endregion
     }
 }

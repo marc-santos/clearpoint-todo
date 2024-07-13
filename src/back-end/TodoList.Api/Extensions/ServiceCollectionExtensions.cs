@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
-using TodoList.Api.Profiles;
+using TodoList.Api.Mapping;
 
 namespace TodoList.Api.Extensions
 {
@@ -18,7 +18,7 @@ namespace TodoList.Api.Extensions
             
             services.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile(typeof(TodoItemsProfile));
+                cfg.AddProfile(typeof(TodoItemMappingProfile));
             });
 
             services.AddHealthChecks()

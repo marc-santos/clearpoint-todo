@@ -1,4 +1,6 @@
-﻿﻿namespace TodoList.Domain.Common.Models
+﻿﻿using System.Diagnostics.CodeAnalysis;
+
+ namespace TodoList.Domain.Common.Models
 {
     public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
     {
@@ -6,14 +8,11 @@
         {
         }
 
-        #region Required for EF Core
-
         #pragma warning disable CS8618
+        [ExcludeFromCodeCoverage(Justification = "Required by EF Core")]
         protected AggregateRoot()
         {
         }
         #pragma warning restore CS8618
-
-        #endregion
     }
 }
