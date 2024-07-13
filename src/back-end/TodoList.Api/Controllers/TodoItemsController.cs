@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using TodoList.Application.TodoItems.Commands.CreateTodoItem;
 using TodoList.Application.TodoItems.GetTodoItems;
 using TodoList.Application.TodoItems.Queries.GetTodoItem;
 
@@ -77,34 +78,21 @@ namespace TodoList.Api.Controllers
             return NoContent();
         } 
 
-        // POST: api/TodoItems 
         [HttpPost]
         public async Task<IActionResult> PostTodoItem(TodoItem todoItem)
         {
-            if (string.IsNullOrEmpty(todoItem?.Description))
-            {
-                return BadRequest("Description is required");
-            }
-            else if (TodoItemDescriptionExists(todoItem.Description))
-            {
-                return BadRequest("Description already exists");
-            } 
+            var result = await _sender
+                .Send(new CreateTodoItemCommand(todoItem.Id, todoItem.Description, todoItem.IsCompleted));
 
-            _context.TodoItems.Add(todoItem);
-            await _context.SaveChangesAsync();
+            var createdTodoItem = _mapper
+                .Map<Generated.TodoItem>(result.TodoItem);
              
-            return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(GetTodoItem), new { id = createdTodoItem.Id }, createdTodoItem);
         } 
 
         private bool TodoItemIdExists(Guid id)
         {
             return _context.TodoItems.Any(x => x.Id == id);
-        }
-
-        private bool TodoItemDescriptionExists(string description)
-        {
-            return _context.TodoItems
-                   .Any(x => x.Description.ToLowerInvariant() == description.ToLowerInvariant() && !x.IsCompleted);
         }
     }
 }

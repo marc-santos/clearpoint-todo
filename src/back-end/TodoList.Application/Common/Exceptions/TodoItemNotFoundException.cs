@@ -11,7 +11,7 @@ namespace TodoList.Application.Common.Exceptions
         { }
 
         public TodoItemNotFoundException(string name, object key)
-            : base($"Entity \"{name}\" ({key}) was not found.")
+            : base($"Entity \"{name}\" with ({key}) was not found.")
         {
         }
     }
