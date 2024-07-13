@@ -72,10 +72,12 @@ namespace TodoList.Api.Tests.Controllers
                 .Throw<ArgumentNullException>();
         }
         
-        [Theory]
-        [MemberData(nameof(GetTodoItemEndpointData))]
-        public async Task Given_GetTodoItem_When_SendGetTodoItemQuery_Then_ReturnsNotFoundOrContractItem(Domain.TodoItems.TodoItem todoItem)
+        [Fact]
+        public async Task Given_GetTodoItem_When_SendGetTodoItemQuery_Then_ReturnsContractItem()
         {
+            var todoItem = new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false,
+                DateTimeOffset.Now, DateTimeOffset.Now);
+
             _senderMock.Setup(x => x.Send(It.IsAny<GetTodoItemQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new GetTodoItemResult(todoItem));
 
@@ -96,13 +98,8 @@ namespace TodoList.Api.Tests.Controllers
                 .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(todoItem));
         }
 
-        public static IEnumerable<object[]> GetTodoItemEndpointData()
-        {
-            yield return [new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false, DateTimeOffset.Now, DateTimeOffset.Now)];
-        }
-
         [Fact]
-        public async Task Given_GetTodoItems_When_SendGetTodoItemsQuery_Then_ReturnsTodoItemsFromContract()
+        public async Task Given_GetTodoItems_When_SendGetTodoItemsQuery_Then_ReturnsContractItems()
         {
             _senderMock.Setup(x => x.Send(It.IsAny<GetTodoItemsQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new GetTodoItemsResult(new List<Domain.TodoItems.TodoItem>()));

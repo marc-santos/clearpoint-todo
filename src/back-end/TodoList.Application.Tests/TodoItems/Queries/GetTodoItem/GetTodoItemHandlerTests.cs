@@ -37,7 +37,7 @@ namespace TodoList.Application.Tests.TodoItems.Queries.GetTodoItem
         }
 
         [Fact]
-        public async Task Given_GetTodoItemQuery_When_Handle_Then_ReturnsGetTodoItemResult()
+        public async Task Given_GetTodoItemQuery_When_RepositoryTodoItemFound_Then_ReturnsGetTodoItemResult()
         {
             var query = new GetTodoItemQuery(Guid.NewGuid());
             var todoItem = new TodoItem(new TodoItemId(Guid.NewGuid()), "", false, DateTimeOffset.Now,
@@ -58,7 +58,7 @@ namespace TodoList.Application.Tests.TodoItems.Queries.GetTodoItem
         }
 
         [Fact]
-        public async Task Given_GetTodoItemQuery_When_Handle_Then_ThrowsTodoItemNotFoundException()
+        public async Task Given_GetTodoItemQuery_When_RepositoryTodoItemNotFound_Then_ThrowsTodoItemNotFoundException()
         {
             var query = new GetTodoItemQuery(Guid.NewGuid());
 
