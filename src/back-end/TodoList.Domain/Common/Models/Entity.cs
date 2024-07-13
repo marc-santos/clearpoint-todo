@@ -1,4 +1,6 @@
-﻿namespace TodoList.Domain.Common.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace TodoList.Domain.Common.Models
 {
     public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull
     {
@@ -34,15 +36,11 @@
             return Id.GetHashCode();
         }
 
-        #region Required for EF Core
-
         #pragma warning disable CS8618
+        [ExcludeFromCodeCoverage(Justification = "Required by EF Core")]
         protected Entity()
         {
         }
         #pragma warning restore CS8618
-
-        #endregion
-
     }
 }

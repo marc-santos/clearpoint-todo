@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using TodoList.Domain.Common.Models;
 
@@ -29,6 +28,17 @@ namespace TodoList.Domain.Tests.Common.Models
             guid1.Equals(guid2)
                 .Should()
                 .BeTrue();
+        }
+
+        [Fact]
+        public void Given_Equals_When_ObjectAreOfDifferentTypes_Then_ReturnsFalse()
+        {
+            var guid1 = new TestValueObject(Guid.NewGuid());
+            var guid2 = new TestValueObject2(Guid.NewGuid());
+
+            guid1.Equals(guid2)
+                .Should()
+                .BeFalse();
         }
 
         [Fact]
@@ -91,6 +101,17 @@ namespace TodoList.Domain.Tests.Common.Models
 
     [ExcludeFromCodeCoverage(Justification = "Tests")]
     public class TestValueObject(Guid value) : ValueObject
+    {
+        public Guid Value { get; } = value;
+
+        public override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
+        }
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "Tests")]
+    public sealed class TestValueObject2(Guid value) : ValueObject
     {
         public Guid Value { get; } = value;
 

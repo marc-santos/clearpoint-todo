@@ -18,7 +18,7 @@ namespace TodoList.Api.Extensions
             
             services.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile(typeof(TodoItemsProfile));
+                cfg.AddProfile(typeof(TodoItemMappingProfile));
             });
 
             services.AddHealthChecks()

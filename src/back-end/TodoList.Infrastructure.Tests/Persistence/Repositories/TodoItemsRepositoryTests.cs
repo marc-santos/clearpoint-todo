@@ -11,8 +11,19 @@ using TodoList.Infrastructure.Persistence.Repositories;
 namespace TodoList.Infrastructure.Tests.Persistence.Repositories
 {
     [ExcludeFromCodeCoverage(Justification = "Tests")]
-    public class TodoItemsRepositoryTests
+    public class TodoItemsRepositoryTests : IDisposable
     {
+        private readonly IServiceCollection _serviceCollection = new ServiceCollection();
+        private readonly IServiceProvider _serviceProvider;
+
+        public TodoItemsRepositoryTests()
+        {
+            _serviceCollection
+                .AddDbContext<TodoListDbContext>(opt => opt.UseInMemoryDatabase("TodoInMemoryDb"));
+
+            _serviceProvider = _serviceCollection.BuildServiceProvider();
+        }
+        
         [Fact]
         public void Given_NullDbContext_When_TodoItemsRepositoryInitialised_Then_ThrowsArgumentNullException()
         {
@@ -26,8 +37,7 @@ namespace TodoList.Infrastructure.Tests.Persistence.Repositories
         [Fact]
         public void Given_NullLogger_When_TodoItemsRepositoryInitialised_Then_ThrowsArgumentNullException()
         {
-            var serviceProvider = GetServiceProvider();
-            var action = () => new TodoItemsRepository(serviceProvider.GetRequiredService<TodoListDbContext>(), null!);
+            var action = () => new TodoItemsRepository(_serviceProvider.GetRequiredService<TodoListDbContext>(), null!);
 
             action
                 .Should()
@@ -35,14 +45,16 @@ namespace TodoList.Infrastructure.Tests.Persistence.Repositories
         }
 
         [Fact]
-        public async Task Given_TodoItem_When_GetTodoItemAsync_Then_ReturnsTodoItem()
+        public async Task Given_ExistingTodoItemId_When_GetTodoItemAsync_Then_ReturnsTodoItem()
         {
-            var serviceProvider = GetServiceProvider();
-            var dbContext = serviceProvider
+            using var scope = _serviceProvider
+                .CreateScope();
+            
+            var dbContext = scope
+                .ServiceProvider
                 .GetRequiredService<TodoListDbContext>();
 
             var repository = new TodoItemsRepository(dbContext, new NullLogger<TodoItemsRepository>());
-
             var todoItem = new TodoItem(new TodoItemId(Guid.NewGuid()), "Test", false, DateTimeOffset.Now, DateTimeOffset.Now);
 
             dbContext.TodoItems.Add(todoItem);
@@ -57,10 +69,33 @@ namespace TodoList.Infrastructure.Tests.Persistence.Repositories
         }
 
         [Fact]
+        public async Task Given_NonExistentTodoItemId_When_GetTodoItemAsync_Then_ReturnsNull()
+        {
+            using var scope = _serviceProvider
+                .CreateScope();
+            
+            var dbContext = scope
+                .ServiceProvider
+                .GetRequiredService<TodoListDbContext>();
+
+            var repository = new TodoItemsRepository(dbContext, new NullLogger<TodoItemsRepository>());
+
+            var result = await repository
+                .GetTodoItemAsync(new TodoItemId(Guid.NewGuid()), CancellationToken.None);
+
+            result
+                .Should()
+                .BeNull();
+        }
+
+        [Fact]
         public async Task Given_TodoItems_When_GetTodoItemsAsync_Then_ReturnsTodoItems()
         {
-            var serviceProvider = GetServiceProvider();
-            var dbContext = serviceProvider
+            using var scope = _serviceProvider
+                .CreateScope();
+            
+            var dbContext = scope
+                .ServiceProvider
                 .GetRequiredService<TodoListDbContext>();
 
             var repository = new TodoItemsRepository(dbContext, new NullLogger<TodoItemsRepository>());
@@ -73,13 +108,12 @@ namespace TodoList.Infrastructure.Tests.Persistence.Repositories
                 .BeEquivalentTo(new List<TodoItem>());
         }
 
-        private static IServiceProvider GetServiceProvider()
+        public void Dispose()
         {
-            var serviceCollection = new ServiceCollection();
-
-            serviceCollection.AddDbContext<TodoListDbContext>(opt => opt.UseInMemoryDatabase(Guid.NewGuid().ToString()));
-
-            return serviceCollection.BuildServiceProvider();
+            _serviceProvider
+                .GetRequiredService<TodoListDbContext>()
+                .Database
+                .EnsureDeleted();
         }
     }
 }

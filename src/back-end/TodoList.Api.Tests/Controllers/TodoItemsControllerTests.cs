@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics.CodeAnalysis;
+using AutoMapper;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,13 @@ using Moq;
 using TodoList.Api.Controllers;
 using TodoList.Api.Mapping;
 using TodoList.Application.TodoItems.GetTodoItems;
+using TodoList.Application.TodoItems.Queries.GetTodoItem;
+using TodoList.Domain.TodoItems.ValueObjects;
 using Xunit;
 
 namespace TodoList.Api.Tests.Controllers
 {
+    [ExcludeFromCodeCoverage(Justification = "Tests")]
     public class TodoItemsControllerTests
     {
         private readonly Mock<ISender> _senderMock = new();
@@ -23,7 +27,7 @@ namespace TodoList.Api.Tests.Controllers
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new TodoItemsProfile());
+                mc.AddProfile(new TodoItemMappingProfile());
             });
             _mapper = mappingConfig.CreateMapper();
         }
@@ -66,6 +70,45 @@ namespace TodoList.Api.Tests.Controllers
             action
                 .Should()
                 .Throw<ArgumentNullException>();
+        }
+        
+        [Theory]
+        [MemberData(nameof(GetTodoItemEndpointData))]
+        public async Task Given_GetTodoItem_When_SendGetTodoItemQuery_Then_ReturnsNotFoundOrContractItem(bool isFound, Domain.TodoItems.TodoItem todoItem)
+        {
+            _senderMock.Setup(x => x.Send(It.IsAny<GetTodoItemQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetTodoItemResult(isFound, todoItem));
+
+            var todoItemController = new TodoItemsController(GetTodoContext(), _mapper, _senderMock.Object, _nullLogger);
+
+            var result = await todoItemController
+                .GetTodoItem(Guid.NewGuid(), CancellationToken.None);
+
+            if (isFound)
+            {
+                var okResult = result as OkObjectResult;
+                
+                okResult
+                    .Should()
+                    .NotBeNull();
+
+                okResult!
+                    .Value
+                    .Should()
+                    .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(todoItem));
+            }
+            else
+            {
+                result
+                    .Should()
+                    .BeOfType<NotFoundResult>();
+            }
+        }
+
+        public static IEnumerable<object[]> GetTodoItemEndpointData()
+        {
+            yield return [true, new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false, DateTimeOffset.Now, DateTimeOffset.Now)];
+            yield return [false, null!];
         }
 
         [Fact]

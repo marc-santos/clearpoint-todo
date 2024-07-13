@@ -2,9 +2,9 @@
 
 namespace TodoList.Api.Mapping
 {
-    public class TodoItemsProfile : Profile
+    public class TodoItemMappingProfile : Profile
     {
-        public TodoItemsProfile()
+        public TodoItemMappingProfile()
         {
             CreateMap<Domain.TodoItems.TodoItem, Generated.TodoItem>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.Value))

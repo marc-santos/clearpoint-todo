@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentValidation;
 using TodoList.Application.Extensions;
 
 namespace TodoList.Application.TodoItems.Queries.GetTodoItem

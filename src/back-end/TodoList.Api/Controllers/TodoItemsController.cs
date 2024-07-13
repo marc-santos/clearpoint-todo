@@ -36,9 +36,9 @@ namespace TodoList.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTodoItem(Guid id)
+        public async Task<IActionResult> GetTodoItem(Guid id, CancellationToken cancellation)
         {
-            var result = await _sender.Send(new GetTodoItemQuery(id));
+            var result = await _sender.Send(new GetTodoItemQuery(id), cancellation);
 
             if (!result.IsFound)
             {
