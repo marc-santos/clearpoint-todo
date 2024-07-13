@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using TodoList.Application.Common.Exceptions;
 using TodoList.Application.Contracts;
 using TodoList.Application.TodoItems.Queries.GetTodoItem;
 using TodoList.Domain.TodoItems;
@@ -35,12 +36,13 @@ namespace TodoList.Application.Tests.TodoItems.Queries.GetTodoItem
                 .Throw<ArgumentNullException>();
         }
 
-        [Theory]
-        [MemberData(nameof(GetTodoItemHandlerData))]
-        public async Task Given_GetTodoItemQuery_When_Handle_Then_ReturnsGetTodoItemResult(TodoItem? todoItem)
+        [Fact]
+        public async Task Given_GetTodoItemQuery_When_Handle_Then_ReturnsGetTodoItemResult()
         {
             var query = new GetTodoItemQuery(Guid.NewGuid());
-            
+            var todoItem = new TodoItem(new TodoItemId(Guid.NewGuid()), "", false, DateTimeOffset.Now,
+                DateTimeOffset.Now);
+
             repositoryMock
                 .Setup(r => r.GetTodoItemAsync(It.IsAny<TodoItemId>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(todoItem);
@@ -50,19 +52,27 @@ namespace TodoList.Application.Tests.TodoItems.Queries.GetTodoItem
             var result = await handler
                 .Handle(query, CancellationToken.None);
             
-            result.IsFound
-                .Should()
-                .Be(todoItem != null);
-            
             result.TodoItem
                 .Should()
                 .Be(todoItem);
         }
 
-        public static IEnumerable<object[]> GetTodoItemHandlerData()
+        [Fact]
+        public async Task Given_GetTodoItemQuery_When_Handle_Then_ThrowsTodoItemNotFoundException()
         {
-            yield return [new TodoItem(new TodoItemId(Guid.NewGuid()), "", false, DateTimeOffset.Now, DateTimeOffset.Now)];
-            yield return [null!];
+            var query = new GetTodoItemQuery(Guid.NewGuid());
+
+            repositoryMock
+                .Setup(r => r.GetTodoItemAsync(It.IsAny<TodoItemId>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((TodoItem)null!);
+            
+            var handler = new GetTodoItemHandler(repositoryMock.Object, _nullLogger);
+
+            var action = async () => await handler.Handle(query, CancellationToken.None);
+
+            await action
+                .Should()
+                .ThrowAsync<TodoItemNotFoundException>();
         }
     }
 }

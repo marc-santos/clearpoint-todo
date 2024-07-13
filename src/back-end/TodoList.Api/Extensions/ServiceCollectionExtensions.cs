@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
+using TodoList.Api.Filters;
 using TodoList.Api.Mapping;
 
 namespace TodoList.Api.Extensions
@@ -45,7 +46,11 @@ namespace TodoList.Api.Extensions
                     });
             });
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ApiExceptionFilterAttribute());
+            });
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoList.Api", Version = "v1" });

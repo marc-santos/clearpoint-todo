@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using TodoList.Application.Common.Exceptions;
 
 namespace TodoList.Application.Common.Behaviours
 {
@@ -22,7 +23,7 @@ namespace TodoList.Application.Common.Behaviours
 
             if (failures.Any())
             {
-                throw new ValidationException(failures);
+                throw new TodoItemValidationException(failures);
             }
 
             return await next();

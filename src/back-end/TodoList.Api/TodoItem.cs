@@ -1,5 +1,3 @@
-using System;
-
 namespace TodoList.Api
 {
     public class TodoItem

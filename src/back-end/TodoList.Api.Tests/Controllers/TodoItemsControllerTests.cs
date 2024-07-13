@@ -74,41 +74,31 @@ namespace TodoList.Api.Tests.Controllers
         
         [Theory]
         [MemberData(nameof(GetTodoItemEndpointData))]
-        public async Task Given_GetTodoItem_When_SendGetTodoItemQuery_Then_ReturnsNotFoundOrContractItem(bool isFound, Domain.TodoItems.TodoItem todoItem)
+        public async Task Given_GetTodoItem_When_SendGetTodoItemQuery_Then_ReturnsNotFoundOrContractItem(Domain.TodoItems.TodoItem todoItem)
         {
             _senderMock.Setup(x => x.Send(It.IsAny<GetTodoItemQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetTodoItemResult(isFound, todoItem));
+                .ReturnsAsync(new GetTodoItemResult(todoItem));
 
             var todoItemController = new TodoItemsController(GetTodoContext(), _mapper, _senderMock.Object, _nullLogger);
 
             var result = await todoItemController
                 .GetTodoItem(Guid.NewGuid(), CancellationToken.None);
 
-            if (isFound)
-            {
-                var okResult = result as OkObjectResult;
+            var okResult = result as OkObjectResult;
                 
-                okResult
-                    .Should()
-                    .NotBeNull();
+            okResult
+                .Should()
+                .NotBeNull();
 
-                okResult!
-                    .Value
-                    .Should()
-                    .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(todoItem));
-            }
-            else
-            {
-                result
-                    .Should()
-                    .BeOfType<NotFoundResult>();
-            }
+            okResult!
+                .Value
+                .Should()
+                .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(todoItem));
         }
 
         public static IEnumerable<object[]> GetTodoItemEndpointData()
         {
-            yield return [true, new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false, DateTimeOffset.Now, DateTimeOffset.Now)];
-            yield return [false, null!];
+            yield return [new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false, DateTimeOffset.Now, DateTimeOffset.Now)];
         }
 
         [Fact]

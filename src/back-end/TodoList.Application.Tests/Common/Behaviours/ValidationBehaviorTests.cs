@@ -3,6 +3,7 @@ using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using TodoList.Application.Common.Behaviours;
+using TodoList.Application.Common.Exceptions;
 
 namespace TodoList.Application.Tests.Common.Behaviours
 {
@@ -68,9 +69,9 @@ namespace TodoList.Application.Tests.Common.Behaviours
             };
 
             if (shouldThrow)
-                await result.Should().ThrowAsync<ValidationException>();
+                await result.Should().ThrowAsync<TodoItemValidationException>();
             else
-                await result.Should().NotThrowAsync<ValidationException>();
+                await result.Should().NotThrowAsync<TodoItemValidationException>();
         }
     }
 }
