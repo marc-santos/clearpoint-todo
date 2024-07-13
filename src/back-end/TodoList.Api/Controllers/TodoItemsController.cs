@@ -38,13 +38,12 @@ namespace TodoList.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTodoItem(Guid id, CancellationToken cancellation)
         {
-            var result = await _sender.Send(new GetTodoItemQuery(id), cancellation);
+            var result = await _sender
+                .Send(new GetTodoItemQuery(id), cancellation);
 
-            if (!result.IsFound)
-            {
-                return NotFound();
-            }
-            var todoItem = _mapper.Map<Generated.TodoItem>(result.TodoItem);
+            var todoItem = _mapper
+                .Map<Generated.TodoItem>(result.TodoItem);
+
             return Ok(todoItem);
         }
 

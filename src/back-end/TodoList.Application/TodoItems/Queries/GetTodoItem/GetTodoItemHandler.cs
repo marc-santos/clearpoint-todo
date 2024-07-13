@@ -1,12 +1,13 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using TodoList.Application.Common.Exceptions;
 using TodoList.Application.Contracts;
 using TodoList.Domain.TodoItems;
 using TodoList.Domain.TodoItems.ValueObjects;
 
 namespace TodoList.Application.TodoItems.Queries.GetTodoItem
 {
-    public sealed record GetTodoItemResult(bool IsFound, TodoItem? TodoItem);
+    public sealed record GetTodoItemResult(TodoItem? TodoItem);
 
     public class GetTodoItemHandler(ITodoItemsRepository repository, ILogger<GetTodoItemHandler> logger)
         : IRequestHandler<GetTodoItemQuery, GetTodoItemResult>
@@ -22,12 +23,12 @@ namespace TodoList.Application.TodoItems.Queries.GetTodoItem
 
             if (todoItem == null)
             {
-                return new GetTodoItemResult(false, null);
+                throw new TodoItemNotFoundException(nameof(TodoItem), request.Id);
             }
 
             _logger.LogInformation("Returning todo item with id {Id}", todoItem.Id.Value);
 
-            return new GetTodoItemResult(true, todoItem);
+            return new GetTodoItemResult(todoItem);
         }
     }
 }
