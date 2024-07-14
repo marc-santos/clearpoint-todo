@@ -9,5 +9,12 @@ namespace TodoList.Application.Extensions
             return ruleBuilder
                 .NotEmpty();
         }
+
+        public static IRuleBuilderOptions<T, string> ValidateDescription<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            return ruleBuilder
+                .NotEmpty()
+                .MaximumLength(100);
+        }
     }
 }

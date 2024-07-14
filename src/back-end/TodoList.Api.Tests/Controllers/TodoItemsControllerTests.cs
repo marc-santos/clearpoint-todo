@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using TodoList.Api.Controllers;
 using TodoList.Api.Mapping;
+using TodoList.Application.TodoItems.Commands.CreateTodoItem;
 using TodoList.Application.TodoItems.GetTodoItems;
 using TodoList.Application.TodoItems.Queries.GetTodoItem;
 using TodoList.Domain.TodoItems.ValueObjects;
@@ -75,11 +76,12 @@ namespace TodoList.Api.Tests.Controllers
         [Fact]
         public async Task Given_GetTodoItem_When_SendGetTodoItemQuery_Then_ReturnsContractItem()
         {
-            var todoItem = new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false,
+            var domainTodoItem = new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false,
                 DateTimeOffset.Now, DateTimeOffset.Now);
 
-            _senderMock.Setup(x => x.Send(It.IsAny<GetTodoItemQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetTodoItemResult(todoItem));
+            _senderMock
+                .Setup(x => x.Send(It.IsAny<GetTodoItemQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetTodoItemResult(domainTodoItem));
 
             var todoItemController = new TodoItemsController(GetTodoContext(), _mapper, _senderMock.Object, _nullLogger);
 
@@ -95,13 +97,14 @@ namespace TodoList.Api.Tests.Controllers
             okResult!
                 .Value
                 .Should()
-                .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(todoItem));
+                .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(domainTodoItem));
         }
 
         [Fact]
         public async Task Given_GetTodoItems_When_SendGetTodoItemsQuery_Then_ReturnsContractItems()
         {
-            _senderMock.Setup(x => x.Send(It.IsAny<GetTodoItemsQuery>(), It.IsAny<CancellationToken>()))
+            _senderMock
+                .Setup(x => x.Send(It.IsAny<GetTodoItemsQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new GetTodoItemsResult(new List<Domain.TodoItems.TodoItem>()));
 
             var todoItemController = new TodoItemsController(GetTodoContext(), _mapper, _senderMock.Object, _nullLogger);
@@ -119,6 +122,35 @@ namespace TodoList.Api.Tests.Controllers
                 .Value
                 .Should()
                 .BeEquivalentTo(new List<Generated.TodoItem>());
+        }
+
+        [Fact]
+        public async Task Given_PostTodoItem_When_SendCreateTodoItemCommand_Then_ReturnsTodoItemFromContract()
+        {
+            var domainTodoItem = new Domain.TodoItems.TodoItem(new TodoItemId(Guid.NewGuid()), "description", false, DateTimeOffset.Now, DateTimeOffset.Now);
+
+            _senderMock
+                .Setup(x => x.Send(It.IsAny<CreateTodoItemCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new CreateTodoItemResult(domainTodoItem));
+
+            var todoItemController = new TodoItemsController(GetTodoContext(), _mapper, _senderMock.Object, _nullLogger);
+
+            var result = await todoItemController
+                .PostTodoItem(new TodoItem
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Description",
+                    IsCompleted = false
+                });
+
+            var createdResult = result as CreatedAtActionResult;
+
+            createdResult
+                .Should()
+                .NotBeNull();
+
+            createdResult!.Value.Should()
+                .BeEquivalentTo(_mapper.Map<Generated.TodoItem>(domainTodoItem));
         }
 
         private static TodoContext GetTodoContext()

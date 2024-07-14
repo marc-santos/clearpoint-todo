@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics.CodeAnalysis;
 
 #nullable disable
 
 namespace TodoList.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Migrations")]
     public partial class InitialCreate : Migration
     {
         /// <inheritdoc />

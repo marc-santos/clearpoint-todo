@@ -6,7 +6,7 @@ using TodoList.Application.Extensions;
 namespace TodoList.Application.Tests.Extensions
 {
     [ExcludeFromCodeCoverage(Justification = "Tests")]
-    public class ValidationExtensionsTests
+    public class IdValidationExtensionsTests
     {
         private readonly IdValidatorTestsValidator _validator = new();
 

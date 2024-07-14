@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -107,6 +108,71 @@ namespace TodoList.Infrastructure.Tests.Persistence.Repositories
                 .Should()
                 .BeEquivalentTo(new List<TodoItem>());
         }
+
+        [Fact]
+        public async Task Given_TodoItem_When_CreateTodoItem_Then_ReturnsCreatedTodoItem()
+        {
+            using var scope = _serviceProvider
+                .CreateScope();
+            
+            var dbContext = scope
+                .ServiceProvider
+                .GetRequiredService<TodoListDbContext>();
+
+            var repository = new TodoItemsRepository(dbContext, new NullLogger<TodoItemsRepository>());
+            var todoItem = new TodoItem(new TodoItemId(Guid.NewGuid()), "Test", false, DateTimeOffset.Now, DateTimeOffset.Now);
+
+            var result = await repository
+                .CreateTodoItem(todoItem, CancellationToken.None);
+
+            result
+                .Should()
+                .BeEquivalentTo(todoItem);
+        }
+
+        [Theory]
+        [MemberData(nameof(FindDuplicateTodoItemData))]
+        public async Task Given_ExistingTodoItem_When_FindDuplicateTodoItem_Then_ReturnsExpectedResult(TodoItem todoItem, Expression<Func<TodoItem, bool>> expression, bool expectedResult)
+        {
+            using var scope = _serviceProvider
+                .CreateScope();
+            
+            var dbContext = scope
+                .ServiceProvider
+                .GetRequiredService<TodoListDbContext>();
+
+            var repository = new TodoItemsRepository(dbContext, new NullLogger<TodoItemsRepository>());
+            
+            dbContext.TodoItems.Add(todoItem);
+            await dbContext.SaveChangesAsync();
+
+            var result = await repository
+                .FindDuplicateTodoItem(expression, CancellationToken.None);
+
+            result
+                .Should()
+                .Be(expectedResult);
+        }
+
+        public static IEnumerable<object[]> FindDuplicateTodoItemData =>
+            new List<object[]>
+            {
+                new object[]
+                {   new TodoItem(new TodoItemId(Guid.Parse("9998532a-8761-4e1d-83eb-ba55e478e640")), "Test 1", false, DateTimeOffset.Now, DateTimeOffset.Now),
+                    (Expression<Func<TodoItem, bool>>)(ti => ti.Id == new TodoItemId(Guid.Parse("9998532a-8761-4e1d-83eb-ba55e478e640"))), 
+                    true
+                },
+                new object[]
+                {   new TodoItem(new TodoItemId(Guid.NewGuid()), "Test 2", false, DateTimeOffset.Now, DateTimeOffset.Now),
+                    (Expression<Func<TodoItem, bool>>)(ti => ti.Description == "Test 2"), 
+                    true
+                },
+                new object[]
+                {   new TodoItem(new TodoItemId(Guid.NewGuid()), "Test 3", true, DateTimeOffset.Now, DateTimeOffset.Now),
+                    (Expression<Func<TodoItem, bool>>)(ti => ti.Description == "Test 3" && ti.IsCompleted == false), 
+                    false
+                }
+            };
 
         public void Dispose()
         {
