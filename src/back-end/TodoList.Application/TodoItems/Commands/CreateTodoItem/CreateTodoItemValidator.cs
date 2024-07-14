@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TodoList.Application.Extensions;
 
 namespace TodoList.Application.TodoItems.Commands.CreateTodoItem
 {
@@ -7,9 +8,9 @@ namespace TodoList.Application.TodoItems.Commands.CreateTodoItem
         public CreateTodoItemValidator()
         {
             RuleFor(ti => ti.Id)
-                .NotEmpty();
+                .ValidateId();
             RuleFor(ti => ti.Description)
-                .NotEmpty();
+                .ValidateDescription();
         }
     }
 }
