@@ -5,6 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using TodoList.RepositoryService;
+using TodoList.RepositoryService.Interface;
+using TodoList.RepositoryService.Service;
 
 namespace TodoList.Api
 {
@@ -17,18 +21,17 @@ namespace TodoList.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllHeaders",
-                      builder =>
-                      {
-                          builder.AllowAnyOrigin()
-                                 .AllowAnyHeader()
-                                 .AllowAnyMethod();
-                      });
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
             });
 
             services.AddControllers();
@@ -36,11 +39,20 @@ namespace TodoList.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoList.Api", Version = "v1" });
             });
+            
+            services.AddDbContext<TodoContext>(options =>
+           options.UseSqlServer("Server=DESKTOP-F295Q9T\\SQLEXPRESS;Database=TodoListDB;Integrated Security=True;Encrypt=True;TrustServerCertificate=True;",
+               sqlServerOptionsAction: sqlOptions =>
+               {
+                   sqlOptions.EnableRetryOnFailure(
+                       maxRetryCount: 5,
+                       maxRetryDelay: TimeSpan.FromSeconds(30),
+                       errorNumbersToAdd: null);
+               }));
 
-            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoItemsDB"));
+            services.AddScoped<ITodoRepository, TodoRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -51,13 +63,9 @@ namespace TodoList.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseCors("AllowAllHeaders");
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
