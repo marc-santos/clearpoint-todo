@@ -6,17 +6,17 @@ using TodoList.Infrastructure.Data;
 
 namespace TodoList.Api.TodoItems
 {
-    public class List(ITodoRepository _repository) : EndpointWithoutRequest<TodoItemsListResponse>
+    public class GetIncompleteTodoItems(ITodoRepository _repository) : EndpointWithoutRequest<TodoItemsListResponse>
     {
         public override void Configure()
         {
-            Get("/api/todoitems/all");
+            Get("/api/todoitems");
             AllowAnonymous();
         }
 
         public override async Task HandleAsync(CancellationToken cancellationToken)
         {
-            var result = await _repository.GetAllAsync(cancellationToken);
+            var result = await _repository.GetManyAsync(t => !t.IsCompleted, cancellationToken);
 
             Response = new TodoItemsListResponse
             {

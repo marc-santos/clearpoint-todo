@@ -7,7 +7,7 @@ namespace TodoList.Api.TodoItems
     {
         public GetTodoItemValidator()
         {
-            RuleFor(x => x.TodoItemId)
+            RuleFor(x => x.Id)
                 .NotEmpty();
         }
     }

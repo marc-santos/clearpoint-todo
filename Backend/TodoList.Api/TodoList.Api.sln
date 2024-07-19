@@ -5,15 +5,15 @@ VisualStudioVersion = 17.10.35004.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Api", "TodoList.Api\TodoList.Api.csproj", "{065CE954-2618-4A24-A613-9C336C2154C6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D9282744-8C44-4223-8D46-1191DBF0C4A1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{D9282744-8C44-4223-8D46-1191DBF0C4A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{87057B0C-874D-480A-BC0F-752DD289542F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Api.UnitTests", "TodoList.Api.UnitTests\TodoList.Api.UnitTests.csproj", "{7BDFD2F0-F6F4-4FBB-86E9-B226896DE2B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Api.IntegrationTests", "TodoList.Api.UnitTests\TodoList.Api.IntegrationTests.csproj", "{7BDFD2F0-F6F4-4FBB-86E9-B226896DE2B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Infrastructure", "TodoList.Infrastructure\TodoList.Infrastructure.csproj", "{DF3916DF-B23C-45B2-8B1F-36159AFF3D55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Core", "TodoList.Core\TodoList.Core.csproj", "{4ECE192A-4191-4EBA-82C0-5F8F43AE0642}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Models", "TodoList.Core\TodoList.Models.csproj", "{4ECE192A-4191-4EBA-82C0-5F8F43AE0642}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

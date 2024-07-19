@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TodoList.Models;
 
 namespace TodoList.Infrastructure.Data
 {
@@ -6,6 +7,6 @@ namespace TodoList.Infrastructure.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
 
-        public DbSet<Core.TodoListAggregate.TodoList> TodoItems { get; set; }
+        public DbSet<TodoItem> TodoItems { get; set; }
     }
 }

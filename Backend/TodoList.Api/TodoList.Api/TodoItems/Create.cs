@@ -1,11 +1,15 @@
 ﻿using FastEndpoints;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using TodoList.Infrastructure.Data;
 
 namespace TodoList.Api.TodoItems
 {
-    public class Create() : Endpoint<CreateTodoItemRequest, CreateTodoItemResponse>
+    public class Create(ITodoRepository _repository, ILogger<Create> _logger) : Endpoint<CreateTodoItemRequest, Results<Ok<CreateTodoItemResponse>, ProblemDetails>>
     {
         public override void Configure()
         {
@@ -17,10 +21,21 @@ namespace TodoList.Api.TodoItems
             });
         }
 
-        public override async Task HandleAsync(CreateTodoItemRequest request, CancellationToken cancellationToken)
+        public override async Task<Results<Ok<CreateTodoItemResponse>,ProblemDetails>> ExecuteAsync(CreateTodoItemRequest request, CancellationToken cancellationToken)
         {
-            Response = new CreateTodoItemResponse(Guid.NewGuid(), "yay!", false);
-            return;
+            try
+            {
+                await _repository.AddAsync(new Models.TodoItem(request.Id, request.Description, request.IsCompleted), cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while processing CREATE to do item request");
+
+                AddError(ex.Message);
+                return new FastEndpoints.ProblemDetails(ValidationFailures);
+            }
+
+            return TypedResults.Ok(new CreateTodoItemResponse(request.Id, request.Description, request.IsCompleted));
         }
     }
 }

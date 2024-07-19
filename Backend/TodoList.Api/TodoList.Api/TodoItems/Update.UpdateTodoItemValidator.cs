@@ -9,7 +9,7 @@ namespace TodoList.Api.TodoItems
         {
             RuleFor(x => x.TodoItemId)
                 .Must((args, todoItemId) => args.Id == todoItemId)
-                .WithMessage("Route and body IDs must match.");
+                .WithMessage("Route and object IDs must match.");
 
             RuleFor(x => x.Description)
                 .NotEmpty()

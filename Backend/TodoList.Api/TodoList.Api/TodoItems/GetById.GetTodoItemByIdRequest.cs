@@ -4,9 +4,9 @@ namespace TodoList.Api.TodoItems
 {
     public class GetTodoItemByIdRequest
     {
-        public const string Route = "/api/todoitems/{TodoItemId:guid}";
-        public static string BuildRoute(Guid todoItemId) => Route.Replace("{TodoItemId:guid}", todoItemId.ToString());
+        public const string Route = "/api/todoitems/{Id:guid}";
+        public static string BuildRoute(Guid id) => Route.Replace("{Id:guid}", id.ToString());
 
-        public Guid TodoItemId { get; set; }
+        public Guid Id { get; set; }
     }
 }

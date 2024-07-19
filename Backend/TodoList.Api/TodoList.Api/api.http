@@ -3,6 +3,11 @@
 @port=44397
 
 // List all to do items
+GET {{host}}:{{port}}/api/todoitems/all
+
+###
+
+// List all incomplete to do items
 GET {{host}}:{{port}}/api/todoitems
 
 ###
@@ -27,7 +32,7 @@ Content-Type: application/json
 
 // Update a to do item
 @id_to_update=3fa85f64-5717-4562-b3fc-2c963f66afa6
-PUT {{host}}:{{port}}/api/todoitems/{{id_to_update}}
+PUT {{host}}:{{port}}/api/todoitems/3fa85f64-5717-4562-b3fc-2c963f66afa6
 Content-Type: application/json
 
 {

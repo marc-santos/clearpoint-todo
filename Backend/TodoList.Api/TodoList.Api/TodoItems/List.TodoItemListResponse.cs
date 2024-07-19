@@ -2,7 +2,7 @@
 
 namespace TodoList.Api.TodoItems
 {
-    public class TodoItemListResponse
+    public class TodoItemsListResponse
     {
         public List<TodoItemRecord> TodoItems { get; set; } = [];
     }

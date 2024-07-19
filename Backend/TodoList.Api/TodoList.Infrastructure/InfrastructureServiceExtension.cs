@@ -10,19 +10,11 @@ namespace TodoList.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, ConfigurationManager config, ILogger logger)
         {
-            //string? connectionString = config.GetConnectionString("SqliteConnection");
-            //Guard.Against.Null(connectionString);
-            //services.AddDbContext<AppDbContext>(options =>
-            // options.UseSqlite(connectionString));
-
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("TodoItemsDB"));
 
-            //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            //services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-            //services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
-            //services.AddScoped<IDeleteContributorService, DeleteContributorService>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
 
-            //logger.LogInformation("{Project} services registered", "Infrastructure");
+            logger.LogInformation("{Project} services registered", "Infrastructure");
 
             return services;
         }
