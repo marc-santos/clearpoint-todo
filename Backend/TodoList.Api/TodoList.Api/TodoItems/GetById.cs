@@ -30,7 +30,6 @@ namespace TodoList.Api.TodoItems
             //    Response = new TodoItemRecord(result.Value.Id, result.Value.Description, result.Value.IsCompleted);
             Response = new TodoItemRecord(Guid.NewGuid(), "This is a sample to do item", false);
             //}
-
         }
     }
 }
